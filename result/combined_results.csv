@@ -1,0 +1,728 @@
+question_id,category,Qwen/Qwen2-Math-72B-Instruct,claude-3-5-sonnet-20240620,claude-3-haiku-20240307,claude-3-opus-20240229,deepseek-ai/DeepSeek-V2.5,gemini-1.5-flash,gemini-1.5-pro,google/gemma-2-27b-it,google/gemma-2-9b-it,gpt-3.5-turbo-0125,gpt-4-turbo-2024-04-09,gpt-4o-2024-08-06,gpt-4o-mini-2024-07-18,meta-llama/Meta-Llama-3.1-405B-Instruct,meta-llama/Meta-Llama-3.1-70B-Instruct,meta-llama/Meta-Llama-3.1-8B-Instruct,mistral-nemo:12b-instruct-2407-q8_0,mistralai/Mixtral-8x7B-Instruct-v0.1,nous-hermes2:10.7b-solar-fp16,phi3:14b-medium-128k-instruct-q8_0,phi3:3.8b-mini-128k-instruct-fp16
+1,"Bitcoin, Blockchain Fundamental, Knowledge, Beginner",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+2,"Bitcoin, Blockchain Fundamental, Knowledge, Beginner",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+3,"Bitcoin, Blockchain Fundamental, Knowledge, Beginner",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+4,"Bitcoin, Consensus Mechanisms, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+5,"Bitcoin, Security, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1
+6,"Bitcoin, Knowledge, Intermediate",0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1
+7,"Bitcoin, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+8,"Bitcoin, Security, Knowledge, Intermediate",0,1,1,1,0,0,0,0,0,1,1,1,0,1,0,0,1,0,0,1,0
+9,"Bitcoin, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+10,"Bitcoin, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,0,1,1,1,1
+11,"Bitcoin, Cryptography, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1,1
+12,"Bitcoin, Smart Contract, System Design, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+13,"Bitcoin, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0
+14,"Bitcoin, Security, System Design, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+15,"Bitcoin, Security, System Design, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1
+16,"Bitcoin, Security, System Design, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+17,"Bitcoin, Privacy, System Design, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+18,"Bitcoin, Cryptography, System Design, Advanced",1,1,0,1,1,0,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1
+19,"Bitcoin, Security, Problem Solving, Advanced",0,1,0,0,1,0,1,0,0,0,1,1,1,1,1,0,0,0,1,1,1
+20,"Bitcoin, Smart Contract, System Design, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+21,"Bitcoin, Privacy, Security, System Design, Advanced",1,1,0,1,0,1,1,1,1,0,1,1,1,1,1,1,0,1,1,0,0
+22,"Bitcoin, Blockchain Fundamental, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1
+23,"Bitcoin, Smart Contract, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+24,"Bitcoin, Smart Contract, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+25,"Bitcoin, Smart Contract, Security, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+26,"Bitcoin, Blockchain Fundamental, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1
+27,"Bitcoin, Cryptography, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+28,"Bitcoin, Smart Contract, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1
+29,"Bitcoin, Cryptography, Privacy, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+30,"Bitcoin, Cryptography, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+31,"Bitcoin, Smart Contract, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+32,"Bitcoin, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,0
+33,"Bitcoin, System Design, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+34,"Bitcoin, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+35,"Bitcoin, System Design, Advanced",1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,0,1
+36,"Bitcoin, Blockchain Fundamental, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1
+37,"Bitcoin, Consensus Mechanisms, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,0,0
+38,"Bitcoin, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+39,"Bitcoin, Blockchain Fundamental, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+40,"Bitcoin, Blockchain Fundamental, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+41,"Bitcoin, System Design, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+42,"Bitcoin, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+43,"Bitcoin, Blockchain Fundamental, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+44,"Bitcoin, Blockchain Fundamental, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+45,"Bitcoin, Consensus Mechanisms, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+46,"Bitcoin, Security, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1
+47,"Bitcoin, Knowledge, Beginner",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+48,"Bitcoin, Knowledge, Advanced",0,1,1,1,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0
+49,"Bitcoin, Security, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+50,"Bitcoin, Security, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+51,"Bitcoin, Security, Knowledge, Intermediate",0,0,1,0,0,1,1,1,1,0,0,0,0,1,0,1,1,1,1,0,0
+52,"Bitcoin, Security, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+53,"Bitcoin, Security, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+54,"Bitcoin, Layer 2 Solutions, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+55,"Bitcoin, Layer 2 Solutions, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+56,"Bitcoin, Layer 2 Solutions, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+57,"Bitcoin, Layer 2 Solutions, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+58,"Bitcoin, Layer 2 Solutions, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,0,1,1
+59,"Bitcoin, Layer 2 Solutions, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+60,"Bitcoin, Layer 2 Solutions, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+61,"Bitcoin, Layer 2 Solutions, Security, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+62,"Bitcoin, Layer 2 Solutions, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+63,"Bitcoin, Layer 2 Solutions, Security, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+64,"Bitcoin, Layer 2 Solutions, Privacy, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+65,"Bitcoin, Layer 2 Solutions, Problem Solving, Advanced",0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,0,0,0,1,0
+66,"Bitcoin, Layer 2 Solutions, Security, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+67,"Bitcoin, Layer 2 Solutions, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+68,"Bitcoin, Layer 2 Solutions, Privacy, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+69,"Bitcoin, Knowledge, Intermediate",0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1
+70,"Blockchain Fundamental, Consensus Mechanisms, System Design, Advanced",1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+71,"Blockchain Fundamental, Layer 2 Solutions, Security, System Design, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+72,"Blockchain Fundamental, Cryptography, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+73,"Blockchain Fundamental, Cryptography, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,0,0,1,1,1,1
+74,"Blockchain Fundamental, Smart Contract, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+75,"Blockchain Fundamental, Cryptography, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1
+76,"Blockchain Fundamental, Knowledge, Advanced",1,1,1,1,1,0,1,0,0,1,1,1,1,1,1,1,1,1,0,1,1
+77,"Blockchain Fundamental, Security, System Design, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+78,"Blockchain Fundamental, Security, System Design, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+79,"Blockchain Fundamental, Smart Contract, Security, System Design, Advanced",0,1,1,0,0,1,1,0,0,1,0,0,0,0,1,0,0,1,0,0,0
+80,"Blockchain Fundamental, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+81,"Blockchain Fundamental, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+82,"Blockchain Fundamental, Problem Solving, Advanced",1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,0,1,1,1,1
+83,"Blockchain Fundamental, Problem Solving, Advanced",1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+84,"Blockchain Fundamental, Security, Problem Solving, Advanced",1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1
+85,"Blockchain Fundamental, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,0,0
+86,"Blockchain Fundamental, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+87,"Blockchain Fundamental, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+88,"Blockchain Fundamental, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+89,"Blockchain Fundamental, Problem Solving, Advanced",1,1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1,1
+90,"Blockchain Fundamental, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+91,"Blockchain Fundamental, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+92,"Blockchain Fundamental, Calculation, Intermediate",0,1,0,1,1,1,1,0,0,1,1,0,1,1,1,1,1,0,0,1,0
+93,"Blockchain Fundamental, Calculation, Intermediate",1,1,1,1,1,0,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1
+94,"Blockchain Fundamental, Knowledge, Beginner",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+95,"Blockchain Fundamental, Calculation, Advanced",1,1,1,0,0,0,0,1,1,1,0,1,1,0,1,0,0,1,1,1,0
+96,"Blockchain Fundamental, Knowledge, Beginner",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+97,"Blockchain Fundamental, Knowledge, Beginner",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+98,"Blockchain Fundamental, Calculation, Advanced",0,0,1,0,1,0,1,1,0,1,1,0,1,0,1,0,1,0,1,1,1
+99,"Blockchain Fundamental, Calculation, Intermediate",1,0,0,1,0,0,1,1,1,0,1,1,1,1,1,0,1,0,0,1,0
+100,"Blockchain Fundamental, Knowledge, Beginner",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+101,"Blockchain Fundamental, Calculation, Intermediate",1,1,1,1,1,1,1,0,1,1,1,1,0,1,1,0,0,0,1,1,1
+102,"Blockchain Fundamental, Calculation, Advanced",1,1,0,1,0,0,0,0,0,1,0,0,0,1,1,0,1,0,0,1,0
+103,"Blockchain Fundamental, Calculation, Advanced",1,1,1,1,1,0,0,1,1,1,1,1,1,1,0,1,1,0,1,1,1
+104,"Blockchain Fundamental, Knowledge, Beginner",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+105,"Blockchain Fundamental, Knowledge, Beginner",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+106,"Blockchain Fundamental, Calculation, Advanced",0,1,1,1,0,0,0,0,0,1,1,0,1,1,1,0,1,1,1,0,1
+107,"Blockchain Fundamental, Security, Calculation, Advanced",1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,0,0,0,0,1
+108,"Blockchain Fundamental, Calculation, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0
+109,"Blockchain Fundamental, Knowledge, Beginner",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+110,"Blockchain Fundamental, Knowledge, Beginner",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+111,"Blockchain Fundamental, Calculation, Intermediate",1,1,0,1,1,1,1,1,0,0,1,1,1,1,0,0,0,0,0,0,1
+112,"Blockchain Fundamental, Calculation, Intermediate",1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,0,0,1,0,1,1
+113,"Blockchain Fundamental, Calculation, Beginner",0,1,1,1,1,0,1,0,0,0,1,1,1,1,1,1,0,0,1,0,1
+114,"Consensus Mechanisms, Security, System Design, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+115,"Consensus Mechanisms, Security, System Design, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1
+116,"Consensus Mechanisms, Knowledge, Beginner",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+117,"Consensus Mechanisms, Calculation, Advanced",0,1,1,1,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1
+118,"Consensus Mechanisms, Calculation, Advanced",1,1,0,1,1,0,0,0,0,1,1,0,1,0,0,0,0,0,1,0,1
+119,"Consensus Mechanisms, Knowledge, Beginner",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+120,"Consensus Mechanisms, Calculation, Advanced",1,0,0,1,1,0,1,1,1,1,1,1,0,1,1,0,0,0,1,1,0
+121,"Consensus Mechanisms, Calculation, Advanced",0,1,0,1,0,0,0,0,0,1,1,1,0,1,0,0,1,0,0,1,0
+122,"Consensus Mechanisms, Calculation, Advanced",0,0,1,0,1,1,0,0,0,1,0,0,0,1,0,1,0,1,1,1,1
+123,"Consensus Mechanisms, Calculation, Advanced",0,1,1,1,0,1,1,0,1,1,1,0,0,1,1,0,1,0,1,0,0
+124,"Consensus Mechanisms, Calculation, Advanced",0,0,0,1,0,1,1,1,1,0,1,1,1,0,0,1,0,0,1,1,1
+125,"Consensus Mechanisms, Calculation, Advanced",0,0,1,0,0,1,0,1,1,1,0,0,0,0,0,0,1,0,0,0,1
+126,"Consensus Mechanisms, Knowledge, Beginner",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+127,"Consensus Mechanisms, Calculation, Advanced",0,0,0,1,1,0,1,0,0,0,1,1,1,0,1,0,0,0,0,1,1
+128,"Consensus Mechanisms, Calculation, Intermediate",1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1
+129,"Consensus Mechanisms, Calculation, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1
+130,"Consensus Mechanisms, Calculation, Intermediate",1,1,0,1,1,1,1,0,0,0,1,1,0,1,1,0,0,0,0,0,0
+131,"Consensus Mechanisms, Knowledge, Beginner",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+132,"Consensus Mechanisms, Calculation, Advanced",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+133,"Consensus Mechanisms, Calculation, Advanced",0,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1
+134,"Consensus Mechanisms, Calculation, Advanced",0,1,0,1,0,0,0,1,0,0,1,1,1,0,1,0,0,0,0,0,1
+135,"Consensus Mechanisms, Calculation, Advanced",1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0
+136,"Consensus Mechanisms, Knowledge, Intermediate",1,0,1,0,0,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1
+137,"Consensus Mechanisms, Calculation, Advanced",0,0,0,1,0,1,0,0,1,1,0,0,1,0,1,0,0,0,0,1,0
+138,"Consensus Mechanisms, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+139,"Consensus Mechanisms, Calculation, Advanced",1,0,0,0,0,0,0,1,0,0,1,1,1,0,0,1,1,0,0,0,1
+140,"Consensus Mechanisms, Calculation, Advanced",0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,1,0
+141,"Consensus Mechanisms, Calculation, Advanced",0,1,0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,1,0,0,0
+142,"Consensus Mechanisms, Knowledge, Beginner",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+143,"Consensus Mechanisms, Knowledge, Beginner",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+144,"Consensus Mechanisms, Calculation, Advanced",0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,1,0,1
+145,"Consensus Mechanisms, Calculation, Advanced",1,1,0,0,0,0,0,1,1,1,0,0,1,0,1,1,1,1,1,1,0
+146,"Consensus Mechanisms, Knowledge, Intermediate",1,1,1,1,1,1,1,0,0,0,1,0,1,1,1,0,1,1,0,1,0
+147,"Consensus Mechanisms, Knowledge, Beginner",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+148,"Consensus Mechanisms, Calculation, Advanced",0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+149,"Consensus Mechanisms, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+150,"Consensus Mechanisms, Calculation, Advanced",0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,1,0,1,0,0,1
+151,"Consensus Mechanisms, Calculation, Advanced",1,1,0,1,0,0,0,1,0,0,1,1,1,0,1,0,0,0,0,0,1
+152,"Consensus Mechanisms, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+153,"Consensus Mechanisms, Calculation, Advanced",1,0,0,0,0,0,0,0,0,1,0,1,0,1,0,1,1,0,1,0,0
+154,"Consensus Mechanisms, Calculation, Advanced",1,1,1,1,1,0,1,1,0,0,1,1,1,0,1,0,0,0,1,0,1
+155,"Consensus Mechanisms, Calculation, Advanced",1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1
+156,"Consensus Mechanisms, Calculation, Advanced",1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,0,0,0,0
+157,"Consensus Mechanisms, Calculation, Advanced",0,0,1,0,0,0,0,1,1,0,1,1,0,0,0,1,1,0,0,1,0
+158,"Consensus Mechanisms, Calculation, Advanced",1,0,1,0,1,0,0,0,0,1,1,1,0,1,1,0,0,0,0,1,1
+159,"Consensus Mechanisms, Knowledge, Intermediate",0,1,1,1,0,0,0,0,0,1,1,1,0,0,1,0,0,0,0,0,0
+160,"Consensus Mechanisms, Calculation, Intermediate",0,1,0,1,0,1,1,0,0,0,1,0,0,0,0,0,0,0,0,1,0
+161,"Consensus Mechanisms, Calculation, Advanced",1,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,1,1
+162,"Consensus Mechanisms, Problem Solving, Advanced",0,0,0,0,1,1,0,1,1,0,1,0,0,1,1,1,0,0,1,0,0
+163,"Consensus Mechanisms, Calculation, Advanced",0,1,1,0,0,1,1,1,1,1,0,0,0,1,1,0,1,1,0,1,0
+164,"Consensus Mechanisms, Calculation, Advanced",1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+165,"Consensus Mechanisms, Calculation, Advanced",0,1,1,1,1,0,0,1,0,0,0,1,1,1,1,0,1,0,1,1,1
+166,"Consensus Mechanisms, Knowledge, Beginner",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+167,"Consensus Mechanisms, Calculation, Advanced",1,1,1,1,1,0,0,0,1,1,1,0,1,1,1,0,0,0,1,0,0
+168,"Consensus Mechanisms, Problem Solving, Advanced",0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+169,"Consensus Mechanisms, Knowledge, Beginner",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+170,"Consensus Mechanisms, Calculation, Intermediate",1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,0,1,1,1,1,0
+171,"Consensus Mechanisms, Calculation, Advanced",1,1,1,1,1,1,1,0,1,1,0,1,0,0,0,0,0,0,1,1,0
+172,"Consensus Mechanisms, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+173,"Consensus Mechanisms, Calculation, Advanced",0,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,0,1,1,1
+174,"Consensus Mechanisms, Calculation, Advanced",1,1,0,1,0,0,1,0,0,0,0,0,0,0,1,0,0,1,0,0,0
+175,"Consensus Mechanisms, Calculation, Intermediate",0,0,1,0,1,0,1,1,0,1,0,1,1,0,0,0,0,0,1,1,1
+176,"Cryptography, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+177,"Cryptography, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+178,"Cryptography, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+179,"Cryptography, Calculation, Advanced",0,0,1,0,1,1,0,0,0,0,0,0,1,1,0,0,1,1,0,1,1
+180,"Cryptography, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1
+181,"Cryptography, Knowledge, Advanced",1,1,1,0,1,0,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0
+182,"Cryptography, Calculation, Advanced",1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1
+183,"Cryptography, Calculation, Advanced",0,1,1,0,1,1,0,0,1,0,1,0,0,1,0,1,0,1,1,1,0
+184,"Cryptography, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+185,"Cryptography, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+186,"Cryptography, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+187,"Cryptography, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+188,"Cryptography, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+189,"Cryptography, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,0,1,1,1
+190,"Cryptography, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+191,"Cryptography, Knowledge, Advanced",1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+192,"Cryptography, Knowledge, Advanced",1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,0,1,1
+193,"Cryptography, Knowledge, Advanced",0,1,0,0,1,1,1,1,1,0,0,0,0,1,0,0,0,0,1,0,0
+194,"Cryptography, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1
+195,"Cryptography, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+196,"Cryptography, Problem Solving, Advanced",1,0,0,0,0,0,0,1,1,0,0,0,1,1,1,0,0,0,0,0,0
+197,"Cryptography, Calculation, Advanced",1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1
+198,"Cryptography, Calculation, Advanced",0,1,0,0,1,1,1,0,0,0,0,0,0,1,1,0,1,0,1,1,0
+199,"Cryptography, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+200,"Cryptography, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+201,"Cryptography, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+202,"Cryptography, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0
+203,"Cryptography, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+204,"Cryptography, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+205,"Cryptography, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1
+206,"Cryptography, Calculation, Advanced",1,1,0,0,0,0,0,1,0,1,1,0,1,1,1,0,0,0,1,1,1
+207,"Cryptography, Knowledge, Advanced",1,1,0,1,1,0,1,0,0,1,1,1,1,0,0,0,0,0,0,1,1
+208,"Cryptography, Calculation, Advanced",0,1,0,1,1,0,1,1,0,0,0,1,1,1,1,1,0,0,1,0,1
+209,"Cryptography, Calculation, Advanced",0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,1,1,0,1,1
+210,"DAO & Governance, Security, System Design, Advanced",0,0,0,0,1,0,0,0,0,0,1,0,0,1,1,0,0,0,1,1,1
+211,"DAO & Governance, Security, System Design, Advanced",1,1,1,0,1,1,0,0,1,0,0,0,0,1,1,1,0,1,0,1,0
+212,"DAO & Governance, Privacy, Security, System Design, Advanced",1,1,1,1,1,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1
+213,"DAO & Governance, Security, System Design, Advanced",0,1,0,1,0,1,1,0,1,1,1,1,1,0,0,0,0,0,0,0,1
+214,"DAO & Governance, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+215,"DAO & Governance, Tokenomics, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+216,"DAO & Governance, Smart Contract, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+217,"DAO & Governance, Tokenomics, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+218,"DAO & Governance, Smart Contract, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+219,"DAO & Governance, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+220,"DAO & Governance, DeFi, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+221,"DAO & Governance, Tokenomics, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+222,"DAO & Governance, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+223,"DAO & Governance, Tokenomics, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+224,"DAO & Governance, Interoperability, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+225,"DAO & Governance, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+226,"DAO & Governance, Smart Contract, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+227,"DAO & Governance, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+228,"DAO & Governance, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+229,"DAO & Governance, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+230,"DAO & Governance, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+231,"DAO & Governance, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+232,"DAO & Governance, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+233,"DAO & Governance, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+234,"DAO & Governance, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+235,"DAO & Governance, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,0
+236,"DAO & Governance, Problem Solving, Advanced",1,1,1,1,0,1,1,1,1,1,0,0,1,1,1,1,0,1,0,1,0
+237,"DAO & Governance, Problem Solving, Advanced",1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+238,"DAO & Governance, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+239,"DAO & Governance, Smart Contract, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+240,"DAO & Governance, Problem Solving, Advanced",1,1,0,1,0,1,0,0,0,1,0,0,0,1,0,0,1,0,0,1,1
+241,"DAO & Governance, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1
+242,"DAO & Governance, Problem Solving, Advanced",1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+243,"DAO & Governance, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+244,"DAO & Governance, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,0,0,1,0
+245,"DAO & Governance, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1,1
+246,"DAO & Governance, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1
+247,"DAO & Governance, Problem Solving, Advanced",1,1,1,1,0,0,1,1,1,0,1,1,1,1,1,0,0,1,1,1,1
+248,"DAO & Governance, Problem Solving, Advanced",0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,1,0
+249,"DAO & Governance, Problem Solving, Advanced",1,1,1,1,1,0,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1
+250,"DAO & Governance, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+251,"DAO & Governance, Calculation, Advanced",0,1,1,1,1,1,1,1,0,1,0,1,1,1,1,1,1,1,1,1,1
+252,"DAO & Governance, Calculation, Advanced",1,1,1,0,1,0,0,0,0,0,0,1,1,1,0,1,0,0,0,0,1
+253,"DAO & Governance, Calculation, Advanced",1,1,1,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,1,0
+254,"DAO & Governance, Calculation, Advanced",0,1,1,1,1,0,0,1,1,0,0,1,1,1,1,1,1,0,1,1,1
+255,"DAO & Governance, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1,1,0
+256,"DAO & Governance, Calculation, Intermediate",0,1,0,1,1,1,1,1,0,1,1,1,0,1,1,0,0,1,0,1,1
+257,"DAO & Governance, Calculation, Advanced",1,1,1,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,1,0
+258,"DAO & Governance, Calculation, Advanced",0,0,1,1,0,1,1,0,0,1,0,0,0,0,0,0,1,0,1,0,0
+259,"DAO & Governance, Calculation, Intermediate",1,1,0,1,1,0,1,0,0,0,1,1,1,1,1,0,0,0,0,0,0
+260,"DAO & Governance, Security, Calculation, Advanced",0,0,1,0,0,1,0,0,0,1,0,1,0,0,0,1,0,0,1,0,0
+261,"DAO & Governance, Calculation, Advanced",1,0,1,0,1,0,0,0,1,0,0,1,1,0,1,0,1,1,0,1,1
+262,"DAO & Governance, Calculation, Advanced",0,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+263,"DAO & Governance, Calculation, Intermediate",0,1,1,1,1,0,1,1,1,1,1,1,0,1,1,0,1,0,0,0,0
+264,"DAO & Governance, Calculation, Intermediate",0,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,0,0,1,1,1
+265,"DAO & Governance, Knowledge, Advanced",0,0,0,1,0,0,1,0,0,0,1,1,0,1,0,0,0,0,0,0,0
+266,"DAO & Governance, Security, Calculation, Advanced",0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
+267,"DAO & Governance, Calculation, Advanced",0,1,0,0,1,0,0,1,1,0,0,1,1,0,1,0,0,0,0,0,0
+268,"DAO & Governance, Calculation, Advanced",0,0,0,1,0,0,1,1,1,0,0,0,0,1,0,1,0,1,0,1,1
+269,"DAO & Governance, Calculation, Intermediate",0,1,1,0,0,1,1,0,0,1,1,1,0,1,0,0,1,0,0,1,1
+270,"DAO & Governance, Problem Solving, Advanced",0,0,1,0,0,1,1,0,0,0,0,1,0,0,0,1,1,0,0,1,1
+271,"DAO & Governance, Calculation, Intermediate",1,1,0,1,1,0,1,0,0,0,1,1,1,1,1,0,1,0,0,0,0
+272,"DAO & Governance, Calculation, Advanced",0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0
+273,"DAO & Governance, Calculation, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1
+274,"DAO & Governance, Calculation, Intermediate",1,1,0,1,1,0,1,0,0,0,1,1,0,1,1,0,1,0,1,1,0
+275,"DAO & Governance, Knowledge, Intermediate",0,1,1,1,1,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0
+276,"Dapps, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+277,"Dapps, Calculation, Intermediate",1,1,0,1,1,0,1,1,0,1,0,0,1,0,1,0,0,0,0,0,1
+278,"Dapps, Calculation, Intermediate",0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+279,"Dapps, Tokenomics, Problem Solving, Advanced",1,1,1,1,1,1,1,0,0,1,1,1,0,1,0,0,0,1,1,1,1
+280,"Dapps, Calculation, Intermediate",0,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,0,1,0,1,0
+281,"DeFi, Security, System Design, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+282,"DeFi, Security, System Design, Advanced",1,1,1,0,1,1,1,0,0,1,1,1,1,1,1,0,1,0,1,0,1
+283,"DeFi, Security, System Design, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+284,"DeFi, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+285,"DeFi, Tokenomics, Security, System Design, Advanced",0,0,1,1,1,0,0,1,1,1,0,0,1,1,1,0,1,0,1,0,1
+286,"DeFi, Security, Problem Solving, Advanced",1,1,0,1,1,0,1,1,0,1,1,1,1,1,1,0,0,0,0,0,1
+287,"DeFi, Smart Contract, Security, Problem Solving, Advanced",0,1,1,1,1,0,0,0,0,0,0,1,0,0,1,0,0,1,0,0,0
+288,"DeFi, Security, System Design, Advanced",1,1,1,1,1,1,0,1,0,0,0,1,0,1,1,1,1,1,1,0,1
+289,"DeFi, Security, Problem Solving, Advanced",0,1,1,1,1,1,1,0,0,0,1,0,0,1,1,0,0,0,1,0,0
+290,"DeFi, Security, System Design, Advanced",1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1
+291,"DeFi, Security, System Design, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+292,"DeFi, Tokenomics, Security, System Design, Advanced",0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0
+293,"DeFi, Security, System Design, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1
+294,"DeFi, Smart Contract, Security, Problem Solving, Advanced",0,0,1,0,0,1,0,0,1,0,0,0,0,0,1,1,0,1,0,0,1
+295,"DeFi, Smart Contract, Security, Problem Solving, Advanced",1,1,1,1,1,0,1,1,1,1,1,0,0,1,1,1,0,1,1,1,1
+296,"DeFi, Smart Contract, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1
+297,"DeFi, Security, System Design, Advanced",1,0,1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0
+298,"DeFi, Smart Contract, Security, Problem Solving, Advanced",0,1,0,1,0,0,0,0,0,0,1,1,0,1,1,1,1,0,0,1,1
+299,"DeFi, Security, System Design, Advanced",0,0,1,1,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,1,0
+300,"DeFi, Interoperability, Security, System Design, Advanced",1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1
+301,"DeFi, Smart Contract, Security, System Design, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+302,"DeFi, Smart Contract, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+303,"DeFi, Smart Contract, Security, Problem Solving, Advanced",0,1,1,1,0,1,1,0,1,1,0,1,0,1,1,1,0,1,0,0,1
+304,"DeFi, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+305,"DeFi, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+306,"DeFi, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+307,"DeFi, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+308,"DeFi, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+309,"DeFi, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+310,"DeFi, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+311,"DeFi, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+312,"DeFi, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+313,"DeFi, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+314,"DeFi, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+315,"DeFi, Calculation, Intermediate",1,1,0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0
+316,"DeFi, Calculation, Advanced",1,1,0,1,0,0,1,0,1,0,1,1,1,0,1,1,0,0,1,1,0
+317,"DeFi, Calculation, Advanced",0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+318,"DeFi, Calculation, Advanced",0,0,1,0,1,1,1,1,0,1,1,0,0,1,1,1,1,0,1,0,0
+319,"DeFi, Calculation, Intermediate",1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,0,0,1,1,1
+320,"DeFi, Security, Calculation, Advanced",1,1,1,1,0,0,0,1,1,0,1,0,1,0,1,1,0,0,1,1,1
+321,"DeFi, Problem Solving, Advanced",0,1,0,0,1,1,1,1,1,0,1,1,0,0,0,0,1,0,1,1,0
+322,"DeFi, Calculation, Intermediate",0,1,0,1,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0
+323,"DeFi, Calculation, Advanced",1,1,1,0,1,1,1,1,1,1,1,1,1,0,1,1,1,0,1,1,1
+324,"DeFi, Calculation, Advanced",1,1,1,1,0,0,1,1,0,0,1,1,0,0,0,0,1,0,0,0,0
+325,"DeFi, Calculation, Intermediate",1,1,1,0,1,1,0,1,1,0,0,1,1,0,1,0,1,0,1,1,1
+326,"DeFi, Calculation, Advanced",0,1,0,0,1,1,0,1,1,1,1,0,1,0,1,0,1,1,0,0,1
+327,"DeFi, Calculation, Intermediate",0,1,1,1,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,1
+328,"DeFi, Calculation, Advanced",1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,0,1,0,0,1,1
+329,"DeFi, Calculation, Advanced",0,1,1,1,1,1,1,1,1,1,0,1,0,1,1,1,0,1,0,1,1
+330,"DeFi, Calculation, Intermediate",1,1,0,1,1,0,0,0,0,0,1,0,0,1,0,0,0,1,0,0,0
+331,"DeFi, Calculation, Advanced",0,0,0,1,1,1,1,1,1,1,1,0,1,1,0,0,0,1,0,1,1
+332,"DeFi, Calculation, Advanced",0,1,1,1,0,1,1,0,0,1,0,0,1,1,0,0,0,1,0,1,1
+333,"DeFi, Calculation, Advanced",1,1,1,0,1,0,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1
+334,"DeFi, Calculation, Advanced",1,1,0,0,0,0,0,1,0,0,0,1,1,0,0,0,0,1,0,0,0
+335,"DeFi, Calculation, Advanced",1,1,1,1,1,0,1,1,1,0,1,1,1,1,1,1,0,0,1,1,1
+336,"DeFi, Calculation, Advanced",0,1,0,0,0,1,0,1,0,1,0,0,0,0,0,0,0,0,0,1,0
+337,"DeFi, Calculation, Advanced",0,0,0,1,0,0,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0
+338,"DeFi, Problem Solving, Advanced",1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+339,"DeFi, Calculation, Advanced",0,1,1,1,1,0,1,1,0,1,0,1,1,1,1,0,1,1,1,1,1
+340,"DeFi, Calculation, Intermediate",1,1,0,0,0,0,0,0,1,1,0,1,1,0,1,0,0,0,1,0,1
+341,"DeFi, Calculation, Advanced",1,1,1,0,0,0,1,1,1,0,0,1,1,0,1,1,0,0,1,1,1
+342,"DeFi, Security, Problem Solving, Advanced",0,1,0,1,0,1,1,1,0,0,1,1,1,1,0,1,0,1,1,0,1
+343,"DeFi, Calculation, Intermediate",1,1,0,1,1,0,0,1,1,0,1,0,1,0,1,1,1,0,0,1,1
+344,"DeFi, Calculation, Intermediate",1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,0,0,0,0,0
+345,"DeFi, Calculation, Advanced",0,1,1,0,1,0,0,1,1,1,1,1,1,0,0,1,0,0,1,1,1
+346,"DeFi, Calculation, Advanced",1,0,1,0,0,0,1,0,1,0,1,1,0,0,1,0,1,1,0,0,0
+347,"DeFi, Calculation, Advanced",1,1,0,1,0,0,1,0,0,0,1,1,1,1,1,1,0,0,0,0,0
+348,"DeFi, Calculation, Advanced",1,1,0,0,0,0,0,1,0,0,0,1,1,1,1,0,1,0,1,0,1
+349,"Ethereum, Smart Contract, Tokenomics, Knowledge, Intermediate",1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,0,0,1,0
+350,"Ethereum, Smart Contract, Tokenomics, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,0,1,1
+351,"Ethereum, Smart Contract, Security, Knowledge, Intermediate",1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+352,"Ethereum, Smart Contract, Tokenomics, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+353,"Ethereum, Smart Contract, Tokenomics, Knowledge, Intermediate",0,1,1,1,1,0,0,0,0,1,1,1,1,1,1,1,0,1,0,1,0
+354,"Ethereum, Smart Contract, Tokenomics, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+355,"Ethereum, Smart Contract, Tokenomics, Knowledge, Beginner",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+356,"Ethereum, Smart Contract, Tokenomics, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+357,"Ethereum, Smart Contract, Tokenomics, Knowledge, Beginner",0,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,0,1,1
+358,"Ethereum, Tokenomics, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+359,"Ethereum, Tokenomics, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+360,"Ethereum, Tokenomics, Knowledge, Intermediate",1,1,1,1,1,1,1,0,1,0,1,1,1,1,1,1,1,1,0,1,1
+361,"Ethereum, Tokenomics, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+362,"Ethereum, Tokenomics, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+363,"Ethereum, Smart Contract, Knowledge, Advanced",1,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,1,1
+364,"Ethereum, Smart Contract, Knowledge, Advanced",0,1,1,1,1,0,1,0,0,0,1,1,0,1,1,0,0,0,0,0,0
+365,"Ethereum, Smart Contract, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+366,"Ethereum, Smart Contract, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+367,"Ethereum, Smart Contract, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+368,"Ethereum, Smart Contract, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+369,"Ethereum, Smart Contract, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+370,"Ethereum, Smart Contract, Knowledge, Advanced",1,1,0,0,0,0,0,1,0,1,0,1,0,0,0,1,0,1,1,0,1
+371,"Ethereum, Smart Contract, Security, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,0,0,1,1
+372,"Ethereum, Smart Contract, Security, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+373,"Ethereum, Cryptography, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+374,"Ethereum, Cryptography, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+375,"Ethereum, Cryptography, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+376,"Ethereum, Cryptography, Knowledge, Intermediate",0,1,0,1,1,0,1,1,0,1,1,1,1,1,1,1,0,1,0,0,1
+377,"Ethereum, Security, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+378,"Ethereum, Cryptography, Knowledge, Intermediate",0,1,0,1,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0
+379,"Ethereum, Smart Contract, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+380,"Ethereum, Smart Contract, Knowledge, Advanced",0,1,0,1,0,0,0,1,0,1,0,0,0,1,1,0,0,0,0,0,0
+381,"Ethereum, Smart Contract, Knowledge, Advanced",0,1,0,1,0,1,1,1,1,1,0,0,0,1,1,1,0,0,0,0,0
+382,"Ethereum, Smart Contract, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0,0,0,1
+383,"Ethereum, Cryptography, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+384,"Ethereum, Cryptography, Knowledge, Advanced",1,1,1,1,1,0,0,1,1,0,1,0,1,1,0,1,0,1,1,1,0
+385,"Ethereum, Smart Contract, Tokenomics, Knowledge, Intermediate",0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,0,0,0,0,0,0
+386,"Ethereum, Smart Contract, Tokenomics, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+387,"Ethereum, Smart Contract, Tokenomics, Knowledge, Intermediate",1,1,1,1,1,1,1,1,0,1,1,1,1,0,0,0,1,1,0,0,0
+388,"Ethereum, Smart Contract, DeFi, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1
+389,"Ethereum, Smart Contract, DeFi, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+390,"Ethereum, Smart Contract, DeFi, Knowledge, Intermediate",0,1,1,1,0,0,1,1,0,0,1,1,0,1,1,0,1,0,0,0,0
+391,"Ethereum, Security, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+392,"Ethereum, Security, Knowledge, Intermediate",0,1,0,1,1,0,1,1,1,0,1,1,1,1,0,0,0,0,1,0,0
+393,"Ethereum, Security, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+394,"Ethereum, Smart Contract, Tokenomics, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+395,"Ethereum, Smart Contract, Tokenomics, Knowledge, Advanced",0,1,1,1,1,1,1,0,1,0,1,1,1,1,1,1,0,0,0,0,0
+396,"Ethereum, Smart Contract, Tokenomics, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+397,"Ethereum, Layer 2 Solutions, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+398,"Ethereum, Layer 2 Solutions, Knowledge, Advanced",0,1,0,1,1,0,0,0,0,0,0,1,0,1,1,1,0,0,0,0,0
+399,"Ethereum, Layer 2 Solutions, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+400,"Ethereum, Smart Contract, Knowledge, Advanced",1,1,1,1,0,0,0,0,1,1,0,1,1,1,0,1,0,0,0,0,0
+401,"Ethereum, Smart Contract, Knowledge, Advanced",0,1,1,0,1,1,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0
+402,"Ethereum, Smart Contract, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+403,"Ethereum, Smart Contract, Knowledge, Advanced",0,1,0,0,0,1,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0
+404,"Ethereum, Consensus Mechanisms, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1
+405,"Ethereum, Consensus Mechanisms, Knowledge, Advanced",0,1,0,1,1,0,0,0,1,0,0,0,0,1,1,0,0,0,0,1,0
+406,"Ethereum, Smart Contract, Knowledge, Advanced",0,1,1,1,1,0,1,0,0,1,1,1,1,1,1,1,0,1,0,0,0
+407,"Ethereum, Smart Contract, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+408,"Ethereum, Cryptography, Knowledge, Advanced",1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,0
+409,"Ethereum, Cryptography, Calculation, Advanced",1,1,1,0,0,0,0,1,1,0,0,0,1,0,0,0,0,0,0,1,0
+410,"Ethereum, Cryptography, Security, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1
+411,"Ethereum, Blockchain Fundamental, Knowledge, Intermediate",0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,0,1,1
+412,"Ethereum, Blockchain Fundamental, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+413,"Ethereum, Cryptography, Calculation, Advanced",0,1,0,1,1,0,0,0,1,0,0,1,1,0,1,1,0,0,0,0,1
+414,"Ethereum, Privacy, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+415,"Ethereum, Cryptography, Security, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+416,"Ethereum, Security, Knowledge, Advanced",0,1,0,1,1,1,1,1,1,0,1,0,0,1,1,0,0,0,0,0,0
+417,"Ethereum, Smart Contract, Security, Problem Solving, Advanced",0,1,0,1,1,1,1,1,0,1,0,1,1,1,1,0,0,1,0,0,0
+418,"Ethereum, Blockchain Fundamental, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1
+419,"Ethereum, Cryptography, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+420,"Ethereum, Security, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,0,1,0,1,1,0,1,0,1,1,1,1
+421,"Ethereum, Blockchain Fundamental, Knowledge, Intermediate",1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1
+422,"Ethereum, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+423,"Ethereum, Cryptography, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+424,"Ethereum, Security, Knowledge, Intermediate",1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0
+425,"Ethereum, Blockchain Fundamental, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+426,"Ethereum, Blockchain Fundamental, Knowledge, Beginner",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+427,"Ethereum, Problem Solving, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+428,"Ethereum, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1,1
+429,"Ethereum, Blockchain Fundamental, Problem Solving, Advanced",0,1,1,0,0,1,0,0,1,1,0,1,1,1,1,1,1,1,1,0,0
+430,"Ethereum, Blockchain Fundamental, Problem Solving, Advanced",0,0,0,0,0,1,1,1,1,1,1,1,1,0,1,0,0,1,1,0,0
+431,"Ethereum, Cryptography, Problem Solving, Advanced",1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+432,"Ethereum, Security, System Design, Advanced",0,1,0,1,0,0,0,0,0,0,0,1,0,1,1,0,0,0,0,0,0
+433,"Ethereum, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+434,"Ethereum, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1
+435,"Ethereum, Interoperability, Problem Solving, Advanced",1,1,1,1,0,1,1,0,1,0,1,1,1,1,1,1,1,1,0,1,0
+436,"Ethereum, Smart Contract, Problem Solving, Advanced",0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1
+437,"Ethereum, Blockchain Fundamental, Problem Solving, Advanced",1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1
+438,"Ethereum, Blockchain Fundamental, Problem Solving, Advanced",1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+439,"Ethereum, Privacy, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1
+440,"Ethereum, Smart Contract, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1
+441,"Ethereum, Smart Contract, Problem Solving, Advanced",1,1,1,1,0,0,1,1,0,0,1,1,1,1,1,1,1,0,1,0,0
+442,"Ethereum, Smart Contract, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+443,"Ethereum, Smart Contract, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+444,"Ethereum, Smart Contract, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+445,"Ethereum, Smart Contract, Problem Solving, Advanced",0,1,0,1,0,0,0,0,0,0,0,1,0,1,1,0,0,0,0,0,0
+446,"Ethereum, Smart Contract, Knowledge, Advanced",1,1,1,1,1,1,0,1,1,1,0,0,1,1,1,1,1,0,1,1,0
+447,"Ethereum, Smart Contract, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+448,"Ethereum, Smart Contract, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+449,"Ethereum, Smart Contract, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+450,"Ethereum, Smart Contract, Problem Solving, Advanced",0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+451,"Ethereum, DeFi, Security, Problem Solving, Advanced",1,1,0,1,0,1,1,1,1,1,1,1,0,1,1,1,1,0,1,1,0
+452,"Ethereum, Smart Contract, Security, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+453,"Ethereum, Smart Contract, Security, Knowledge, Advanced",0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+454,"Ethereum, Smart Contract, Knowledge, Intermediate",0,1,1,0,0,0,0,0,0,0,1,1,0,0,1,0,0,0,0,0,0
+455,"Ethereum, Smart Contract, Security, Knowledge, Advanced",0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0
+456,"Ethereum, Smart Contract, Security, Knowledge, Advanced",0,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1
+457,"Ethereum, Smart Contract, Security, Knowledge, Advanced",1,1,1,1,0,1,1,1,1,0,1,0,1,0,0,0,0,0,0,0,0
+458,"Ethereum, Smart Contract, Security, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+459,"Ethereum, Smart Contract, Security, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1
+460,"Ethereum, Smart Contract, Problem Solving, Advanced",1,1,0,1,0,0,0,0,1,0,0,0,0,0,0,1,0,0,1,0,0
+461,"Ethereum, Smart Contract, Problem Solving, Advanced",1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,1,0,0,1
+462,"Ethereum, Smart Contract, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+463,"Ethereum, Smart Contract, Problem Solving, Advanced",0,0,0,0,1,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0
+464,"Ethereum, DeFi, Security, Problem Solving, Advanced",0,0,1,1,1,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0
+465,"Ethereum, Tokenomics, Problem Solving, Advanced",1,0,0,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,0,1,0
+466,"Ethereum, DeFi, Problem Solving, Advanced",1,1,1,1,0,0,0,1,0,0,0,0,1,0,1,1,0,1,1,1,1
+467,"Ethereum, DAO & Governance, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,0,0,0,1,0,0,1,0,0,0,0,0
+468,"Ethereum, Smart Contract, Problem Solving, Advanced",0,1,1,1,0,0,0,0,0,0,1,1,0,1,1,1,0,0,1,1,0
+469,"Ethereum, Interoperability, Security, Problem Solving, Advanced",0,1,1,1,1,1,0,1,0,0,0,0,1,1,1,1,1,1,1,0,1
+470,"Ethereum, DeFi, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+471,"Ethereum, Privacy, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1
+472,"Ethereum, Blockchain Fundamental, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,0
+473,"Ethereum, Blockchain Fundamental, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1
+474,"Ethereum, Privacy, Smart Contract, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+475,"Ethereum, Smart Contract, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1
+476,"Ethereum, Blockchain Fundamental, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1
+477,"Ethereum, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1
+478,"Ethereum, Blockchain Fundamental, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,0
+479,"Ethereum, Blockchain Fundamental, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1
+480,"Ethereum, Blockchain Fundamental, Knowledge, Intermediate",1,1,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,1
+481,"Ethereum, Dapps, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+482,"Ethereum, Dapps, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+483,"Ethereum, Dapps, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+484,"Ethereum, Dapps, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+485,"Ethereum, Smart Contract, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+486,"Ethereum, Smart Contract, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+487,"Ethereum, Smart Contract, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+488,"Ethereum, Smart Contract, Security, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+489,"Ethereum, Smart Contract, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+490,"Ethereum, Smart Contract, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+491,"Ethereum, Smart Contract, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+492,"Ethereum, Smart Contract, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+493,"Ethereum, Smart Contract, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+494,"Ethereum, Smart Contract, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+495,"Ethereum, Blockchain Fundamental, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+496,"Ethereum, Smart Contract, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+497,"Ethereum, Smart Contract, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+498,"Ethereum, Smart Contract, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+499,"Ethereum, Smart Contract, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+500,"Ethereum, Consensus Mechanisms, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1
+501,"Ethereum, Interoperability, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+502,"Ethereum, Layer 2 Solutions, Problem Solving, Advanced",1,1,1,1,0,0,0,0,0,0,0,1,0,0,1,0,1,1,1,0,0
+503,"Ethereum, Consensus Mechanisms, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+504,"Ethereum, Consensus Mechanisms, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1
+505,"Ethereum, Consensus Mechanisms, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+506,"Ethereum, Interoperability, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+507,"Ethereum, Knowledge, Beginner",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+508,"Ethereum, Calculation, Intermediate",1,1,0,1,0,0,0,1,0,0,1,1,0,0,0,0,0,0,1,0,0
+509,"Interoperability, Security, System Design, Advanced",1,1,1,1,0,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1
+510,"Interoperability, Security, System Design, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+511,"Interoperability, Security, System Design, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+512,"Interoperability, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+513,"Interoperability, Calculation, Advanced",0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,1,0,0,0,0
+514,"Interoperability, Calculation, Advanced",0,1,1,1,1,0,1,1,1,1,0,1,1,1,0,0,1,1,1,0,1
+515,"Interoperability, Problem Solving, Advanced",0,1,0,0,1,0,0,0,0,1,1,1,0,1,1,0,1,1,1,1,1
+516,"Interoperability, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,0,1
+517,"Interoperability, Calculation, Advanced",1,1,1,1,0,1,1,1,1,0,0,0,0,1,0,1,0,1,1,0,0
+518,"Interoperability, Security, Calculation, Advanced",0,0,1,0,1,0,0,1,1,0,1,1,1,1,1,0,0,1,0,0,0
+519,"Interoperability, Calculation, Advanced",0,1,1,0,1,0,1,1,1,1,0,1,1,1,1,0,0,0,1,1,0
+520,"Interoperability, Calculation, Advanced",0,1,0,0,1,0,1,0,0,1,1,0,1,0,1,1,1,0,1,0,0
+521,"Interoperability, Calculation, Advanced",1,1,0,1,0,1,1,0,0,0,1,1,0,1,1,0,0,0,1,0,0
+522,"Interoperability, Problem Solving, Advanced",1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,0,1,1,1,1
+523,"Layer 2 Solutions, Consensus Mechanisms, Security, System Design, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1
+524,"Layer 2 Solutions, Privacy, Security, System Design, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+525,"Layer 2 Solutions, Consensus Mechanisms, Security, System Design, Advanced",1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,0,0,0,1,1
+526,"Layer 2 Solutions, Privacy, Security, System Design, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+527,"Layer 2 Solutions, Security, System Design, Advanced",1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,0,1,0,1,1,1
+528,"Layer 2 Solutions, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+529,"Layer 2 Solutions, Calculation, Advanced",0,1,1,1,1,0,1,1,1,0,1,0,0,0,1,0,1,0,1,1,1
+530,"Layer 2 Solutions, Calculation, Advanced",0,1,1,1,1,1,0,1,1,0,1,1,0,0,1,0,1,0,0,1,0
+531,"Layer 2 Solutions, Calculation, Advanced",0,1,1,1,1,0,0,1,1,1,0,1,1,1,1,0,1,0,0,0,0
+532,"Layer 2 Solutions, Calculation, Advanced",0,1,0,1,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0
+533,"Layer 2 Solutions, Calculation, Intermediate",0,1,0,0,1,0,0,0,0,1,1,1,1,0,0,0,1,0,0,1,0
+534,"Layer 2 Solutions, Knowledge, Beginner",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+535,"Layer 2 Solutions, Calculation, Intermediate",0,1,0,1,1,1,1,0,0,0,1,1,0,1,0,0,0,0,1,1,0
+536,"Layer 2 Solutions, Calculation, Advanced",0,1,0,1,0,1,0,0,0,0,1,0,0,0,1,1,1,1,0,0,1
+537,"Layer 2 Solutions, Knowledge, Beginner",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+538,"Layer 2 Solutions, Calculation, Advanced",1,1,0,1,0,0,1,0,0,0,1,0,1,1,0,0,0,0,0,0,0
+539,"Layer 2 Solutions, Problem Solving, Advanced",0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0
+540,"Layer 2 Solutions, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,0,1,1
+541,"Layer 2 Solutions, Problem Solving, Advanced",1,1,1,1,0,0,1,1,0,0,1,1,1,1,0,0,0,0,0,1,1
+542,"Layer 2 Solutions, Calculation, Advanced",0,1,1,1,0,0,0,0,1,0,0,0,1,1,1,1,0,0,0,1,1
+543,"Layer 2 Solutions, Security, Calculation, Advanced",1,1,0,0,0,0,0,1,0,0,1,0,0,0,1,0,1,0,0,0,0
+544,"Layer 2 Solutions, Calculation, Advanced",0,1,1,1,1,0,1,1,1,1,0,1,1,0,1,0,0,0,0,1,0
+545,"Layer 2 Solutions, Calculation, Advanced",0,1,1,1,1,1,1,0,1,0,1,0,1,1,0,0,0,0,0,0,1
+546,"Layer 2 Solutions, Security, Calculation, Advanced",1,1,0,1,1,0,1,1,0,0,1,1,0,1,0,0,1,0,0,1,0
+547,"Layer 2 Solutions, Calculation, Advanced",1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,0,0,0
+548,"Privacy, Security, Smart Contract, System Design, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+549,"Privacy, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+550,"Privacy, Security, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+551,"Privacy, Security, System Design, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,0,1,1
+552,"Privacy, Security, System Design, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+553,"Privacy, Smart Contract, Security, System Design, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+554,"Privacy, Smart Contract, Security, System Design, Advanced",1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,0,0,1,1,1
+555,"Privacy, Security, System Design, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+556,"Privacy, Smart Contract, Security, System Design, Advanced",1,1,1,1,1,1,0,0,1,1,1,1,1,1,0,1,0,1,0,1,0
+557,"Privacy, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+558,"Privacy, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0
+559,"Privacy, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+560,"Privacy, Calculation, Advanced",0,1,1,1,0,1,1,1,1,1,0,0,1,1,0,0,0,0,0,0,1
+561,"Privacy, Calculation, Advanced",1,1,1,1,1,0,1,0,0,1,1,0,1,1,1,0,0,1,1,1,1
+562,"Privacy, Calculation, Advanced",0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0
+563,"Privacy, Calculation, Advanced",1,1,0,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,0,1,1
+564,"Privacy, Calculation, Advanced",0,1,0,1,1,0,0,1,1,0,1,0,0,1,1,0,0,0,0,0,0
+565,"Privacy, Calculation, Advanced",0,1,1,1,1,1,1,1,1,1,0,0,1,1,1,0,1,1,0,1,0
+566,"Privacy, Calculation, Advanced",1,1,1,1,0,1,1,1,0,0,1,1,0,1,1,0,1,0,1,1,1
+567,"Privacy, Calculation, Advanced",1,1,1,1,1,1,0,1,1,1,1,0,1,1,1,1,0,1,1,1,0
+568,"Privacy, Calculation, Advanced",1,1,1,1,1,1,1,1,1,0,1,1,1,0,0,1,0,0,1,1,0
+569,"Privacy, Calculation, Advanced",0,1,1,1,0,1,0,0,0,0,0,0,0,1,0,1,0,0,0,1,0
+570,"Privacy, Knowledge, Advanced",1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,0,0,0,0,1,1
+571,"Privacy, Calculation, Advanced",1,1,1,1,1,0,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1
+572,"Privacy, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+573,"Privacy, Calculation, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+574,"Privacy, Calculation, Advanced",0,1,0,1,1,0,1,0,0,0,0,0,0,1,0,0,1,0,0,1,0
+575,"Privacy, Calculation, Advanced",0,1,0,1,0,0,0,1,0,0,1,0,0,1,0,1,0,0,0,1,1
+576,"Privacy, Calculation, Advanced",0,1,0,1,0,0,0,1,1,0,0,0,0,1,0,0,1,0,1,0,1
+577,"Privacy, Calculation, Advanced",1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,0,1,1,1,0
+578,"Privacy, Calculation, Advanced",0,1,1,1,0,0,1,1,0,1,1,1,1,1,1,0,0,0,0,1,0
+579,"Privacy, Calculation, Advanced",1,1,0,1,1,0,1,1,0,0,0,0,0,1,1,0,0,0,0,0,1
+580,"Privacy, Calculation, Intermediate",0,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,0,0,1,0,1
+581,"Privacy, Calculation, Advanced",0,1,0,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0
+582,"Privacy, Calculation, Advanced",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+583,"Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+584,"Security, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+585,"Security, Problem Solving, Advanced",1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1,1
+586,"Smart Contract, DeFi, Security, Problem Solving, Advanced",0,0,0,1,1,1,0,0,1,0,0,0,0,0,0,1,0,1,0,0,0
+587,"Smart Contract, Security, System Design, Advanced",0,1,0,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,0
+588,"Smart Contract, Security, System Design, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+589,"Smart Contract, Security, Problem Solving, Advanced",0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,1
+590,"Smart Contract, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+591,"Smart Contract, Security, Problem Solving, Advanced",1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+592,"Smart Contract, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+593,"Smart Contract, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+594,"Smart Contract, Security, Problem Solving, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+595,"Smart Contract, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+596,"Smart Contract, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+597,"Smart Contract, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+598,"Smart Contract, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+599,"Smart Contract, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+600,"Smart Contract, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+601,"Smart Contract, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+602,"Smart Contract, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+603,"Smart Contract, Problem Solving, Advanced",0,0,0,1,0,0,0,0,0,0,1,1,1,1,1,1,1,0,1,1,1
+604,"Smart Contract, Problem Solving, Advanced",0,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,0,1,1,0
+605,"Smart Contract, Problem Solving, Advanced",1,0,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,0,0,1
+606,"Smart Contract, Problem Solving, Advanced",0,0,1,0,0,0,0,0,0,1,1,0,1,0,1,0,0,0,1,1,1
+607,"Solana, Consensus Mechanisms, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+608,"Solana, Consensus Mechanisms, Knowledge, Advanced",0,1,1,1,0,0,0,0,0,1,0,1,0,1,1,1,0,1,1,1,1
+609,"Solana, Consensus Mechanisms, Security, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+610,"Solana, Blockchain Fundamental, Knowledge, Advanced",0,1,1,1,1,0,1,0,0,0,1,1,1,1,1,1,0,1,0,0,0
+611,"Solana, Consensus Mechanisms, Security, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+612,"Solana, Consensus Mechanisms, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+613,"Solana, Consensus Mechanisms, Knowledge, Advanced",0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0
+614,"Solana, Consensus Mechanisms, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1
+615,"Solana, Consensus Mechanisms, Security, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+616,"Solana, Consensus Mechanisms, Security, Knowledge, Advanced",1,1,1,1,0,0,1,1,1,1,0,0,0,0,1,1,1,0,1,1,1
+617,"Solana, Consensus Mechanisms, Security, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+618,"Solana, Consensus Mechanisms, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1
+619,"Solana, Consensus Mechanisms, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1
+620,"Solana, Consensus Mechanisms, Knowledge, Advanced",1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0
+621,"Solana, Consensus Mechanisms, Security, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,0,1,1
+622,"Solana, Consensus Mechanisms, Knowledge, Advanced",1,1,1,0,0,1,1,0,0,0,0,1,1,1,1,1,0,1,0,0,1
+623,"Solana, Consensus Mechanisms, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+624,"Solana, Consensus Mechanisms, Security, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+625,"Solana, Blockchain Fundamental, Knowledge, Advanced",1,1,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,1
+626,"Solana, Smart Contract, Knowledge, Advanced",0,1,0,1,0,0,1,1,0,0,1,1,1,1,1,0,0,0,1,1,0
+627,"Solana, Smart Contract, Knowledge, Advanced",1,1,0,1,1,1,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0
+628,"Solana, Smart Contract, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+629,"Solana, Smart Contract, Security, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+630,"Solana, Blockchain Fundamental, Security, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+631,"Solana, Smart Contract, Security, Knowledge, Advanced",0,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,0,1,0,1,1
+632,"Solana, Smart Contract, Security, Knowledge, Advanced",1,1,1,1,1,1,0,1,1,1,0,1,1,1,1,1,1,1,1,1,1
+633,"Solana, Smart Contract, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0
+634,"Solana, Blockchain Fundamental, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+635,"Solana, Smart Contract, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,0,1,1
+636,"Solana, Smart Contract, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+637,"Solana, Blockchain Fundamental, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1,1
+638,"Solana, Blockchain Fundamental, Knowledge, Intermediate",0,1,0,1,1,0,0,1,1,0,1,1,1,1,1,0,0,0,0,1,1
+639,"Solana, Blockchain Fundamental, Knowledge, Advanced",0,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,0,1,1,1
+640,"Solana, Smart Contract, Knowledge, Advanced",1,1,1,1,1,1,1,0,1,0,1,1,1,0,0,0,1,1,0,0,0
+641,"Solana, Smart Contract, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+642,"Solana, Blockchain Fundamental, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+643,"Solana, Tokenomics, Knowledge, Intermediate",0,0,0,0,1,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0
+644,"Solana, Blockchain Fundamental, Knowledge, Intermediate",1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,0,1,1
+645,"Solana, Smart Contract, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1
+646,"Solana, Blockchain Fundamental, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+647,"Solana, Blockchain Fundamental, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1
+648,"Solana, Smart Contract, Knowledge, Advanced",1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+649,"Solana, Tokenomics, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+650,"Solana, Smart Contract, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1
+651,"Solana, Smart Contract, Cryptography, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,0,1,1
+652,"Solana, Smart Contract, Cryptography, Knowledge, Advanced",1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,0
+653,"Solana, Smart Contract, Security, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1
+654,"Solana, Smart Contract, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+655,"Solana, Smart Contract, Knowledge, Advanced",0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,0,1,0
+656,"Solana, Smart Contract, Security, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+657,"Solana, Smart Contract, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+658,"Solana, Smart Contract, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+659,"Solana, Tokenomics, Knowledge, Intermediate",1,1,0,1,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1
+660,"Solana, Tokenomics, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+661,"Solana, Tokenomics, Knowledge, Intermediate",0,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,0,1,0
+662,"Solana, Tokenomics, Knowledge, Beginner",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1
+663,"Solana, Tokenomics, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1
+664,"Solana, Tokenomics, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+665,"Solana, Tokenomics, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+666,"Solana, Blockchain Fundamental, Knowledge, Intermediate",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1
+667,"Solana, Consensus Mechanisms, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0
+668,"Solana, Blockchain Fundamental, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+669,"Solana, Blockchain Fundamental, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+670,"Solana, Blockchain Fundamental, Knowledge, Advanced",0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,0,0
+671,"Solana, Blockchain Fundamental, Security, Knowledge, Advanced",0,1,1,1,1,1,1,1,0,0,1,1,1,1,1,0,1,1,0,1,0
+672,"Solana, Blockchain Fundamental, Knowledge, Advanced",1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,0,0,1,0,1,1
+673,"Solana, Blockchain Fundamental, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+674,"Solana, Blockchain Fundamental, Knowledge, Advanced",1,1,1,1,0,1,0,1,1,0,0,0,0,1,1,0,0,1,1,0,1
+675,"Solana, Blockchain Fundamental, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+676,"Solana, Blockchain Fundamental, Security, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1
+677,"Solana, Blockchain Fundamental, Problem Solving, Advanced",0,1,0,1,0,0,1,0,0,0,1,1,0,1,1,0,0,0,0,1,1
+678,"Solana, Blockchain Fundamental, Knowledge, Advanced",1,1,1,1,1,0,0,1,1,0,1,1,1,1,1,1,0,0,0,0,0
+679,"Solana, Blockchain Fundamental, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1
+680,"Solana, Blockchain Fundamental, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1
+681,"Solana, Blockchain Fundamental, Security, Knowledge, Advanced",0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,0,1,1
+682,"Solana, Blockchain Fundamental, Knowledge, Advanced",0,1,0,0,1,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,1
+683,"Solana, Blockchain Fundamental, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1
+684,"Solana, Blockchain Fundamental, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1
+685,"Solana, Blockchain Fundamental, Knowledge, Advanced",1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1
+686,"Solana, Blockchain Fundamental, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1
+687,"Solana, Knowledge, Advanced",1,1,0,1,1,0,1,1,1,0,0,1,1,1,1,1,1,0,0,1,1
+688,"Solana, Knowledge, Advanced",1,1,0,1,0,0,0,1,0,0,1,1,0,0,1,0,0,0,1,0,0
+689,"Solana, Dapps, Knowledge, Advanced",1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1
+690,"Solana, Blockchain Fundamental, Knowledge, Advanced",1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,1,0,1,0,1,1
+691,"Solana, Knowledge, Advanced",0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,1
+692,"Tokenomics, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+693,"Tokenomics, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+694,"Tokenomics, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+695,"Tokenomics, DeFi, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+696,"Tokenomics, Interoperability, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1
+697,"Tokenomics, DeFi, Problem Solving, Advanced",1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+698,"Tokenomics, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+699,"Tokenomics, DAO & Governance, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+700,"Tokenomics, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+701,"Tokenomics, DAO & Governance, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+702,"Tokenomics, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+703,"Tokenomics, DAO & Governance, Security, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+704,"Tokenomics, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+705,"Tokenomics, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+706,"Tokenomics, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+707,"Tokenomics, Interoperability, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+708,"Tokenomics, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+709,"Tokenomics, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+710,"Tokenomics, DeFi, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+711,"Tokenomics, Privacy, DAO & Governance, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+712,"Tokenomics, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+713,"Tokenomics, DeFi, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+714,"Tokenomics, DAO & Governance, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+715,"Tokenomics, DeFi, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+716,"Tokenomics, DeFi, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+717,"Tokenomics, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+718,"Tokenomics, DAO & Governance, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+719,"Tokenomics, DeFi, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+720,"Tokenomics, DAO & Governance, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+721,"Tokenomics, DeFi, Problem Solving, Advanced",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+722,"Tokenomics, Calculation, Intermediate",1,0,1,1,1,1,1,1,1,0,1,0,1,1,1,0,1,0,0,1,1
+723,"Tokenomics, Calculation, Intermediate",0,1,0,1,1,1,0,1,0,1,1,1,0,1,1,0,1,1,0,1,0
+724,"Tokenomics, Calculation, Advanced",0,1,0,0,1,0,0,1,1,0,1,1,1,1,0,0,0,1,0,1,1
+725,"Tokenomics, Problem Solving, Advanced",1,1,0,0,1,0,0,1,1,0,1,1,1,1,0,1,1,1,1,1,1
+726,"Tokenomics, Calculation, Advanced",0,1,1,0,0,0,1,0,0,1,1,1,0,0,1,1,1,1,0,0,0
+727,"Tokenomics, Calculation, Advanced",0,1,0,1,0,0,1,0,1,1,0,1,1,1,1,0,1,1,1,1,1
