@@ -21,7 +21,7 @@ CryptoBench is a comprehensive benchmark designed to assess the capabilities of 
 
 ### MVP Dataset
 
-- 728 multiple-choice questions
+- 727 multiple-choice questions
 - Human-AI collaborative creation process:
   1. Humans source specific materials
   2. AI models generate questions based on these materials
@@ -77,4 +77,4 @@ This project is licensed under the Creative Commons Attribution 4.0 Internationa
 contact@cryptobench.org
 ---
 
-CryptoBench is a living project, continuously evolving with the rapidly advancing fields of cryptography and artificial intelligence. Join us in pushing the boundaries of what's possible at the intersection of these transformative technologies.
+CryptoBench is continuously evolving with the rapidly advancing fields of cryptography and artificial intelligence. Join us in pushing the boundaries of what's possible at the intersection of these transformative technologies.
