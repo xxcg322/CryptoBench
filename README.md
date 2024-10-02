@@ -7,8 +7,8 @@ CryptoBench is a comprehensive benchmark designed to assess the capabilities of 
 ## Project Components
 
 1. **Question Datasets**
-   - MVP Dataset: 728 multiple-choice questions for rapid LLM evaluation
-   - Task Dataset: 102 complex tasks simulating real-world scenarios
+   - MVP Dataset: 727 multiple-choice questions for rapid LLM evaluation
+   - Task Dataset: 230 complex tasks 
 
 2. **Automated Testing Framework**
    - Currently implemented for the MVP Dataset
@@ -31,7 +31,7 @@ CryptoBench is a comprehensive benchmark designed to assess the capabilities of 
 
 ### Task Dataset
 
-- 102 complex tasks covering:
+- 230 complex tasks covering:
   - Q&A
   - MEV/arbitrage scenario simulations
   - Lightning Network operation simulations
