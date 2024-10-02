@@ -1218,7 +1218,7 @@
         "answer": "The algorithm verifies each RSA-based signature by checking m = s^e mod N, where s is the signature and e, N are the public key components. For 2048-bit signatures, the time complexity for verification is O(n^2). Verifying 1000 transactions requires 1000 * O(2048^2) = 1000 * 4.19 * 10^6 = 4.19 * 10^9 operations. With a CPU speed of 10 GFLOPS, this process would take approximately 0.42 seconds. However, scalability becomes an issue as the number of transactions increases, leading to potential bottlenecks in verifying a large volume of transactions. Parallelization can be applied by distributing the workload across multiple CPUs, while hardware acceleration (such as GPUs or FPGAs) could drastically reduce the time per verification, improving scalability.",
         "topic": [
             "Cryptography",
-            "Blockchain"
+            "Blockchain Fundamental"
         ],
         "category": "coding",
         "id": "111"
@@ -1402,7 +1402,7 @@
                     "question": "Create a Solidity smart contract for an ERC20 token named 'ReflectToken' (symbol: RFT) with the following features:\n\n1. Total supply: 1,000,000,000 tokens\n2. Decimals: 9\n3. Implement a reflection mechanism to redistribute transaction fees\n4. Implement different buy and sell taxes:\n   - Buy tax: 5%\n   - Sell tax: 10%\n5. Include functions to swap collected tokens for ETH and add to Uniswap liquidity\n6. Implement transaction limits:\n   - Max transaction amount: 5,000,000 tokens\n   - Max wallet size: 10,000,000 tokens\n7. Include owner functions to:\n   - Exclude addresses from fees\n   - Set tax rates\n   - Toggle swapping mechanism\n   - Set transaction and wallet limits\n8. Implement a basic anti-bot measure during contract deployment\n\nEnsure the contract is secure, gas-efficient, and follows best practices. Use OpenZeppelin contracts where appropriate.",
                     "code":"// SPDX-License-Identifier: MIT\npragma solidity ^0.8.9;\n\nimport \"@openzeppelin/contracts/token/ERC20/ERC20.sol\";\nimport \"@openzeppelin/contracts/access/Ownable.sol\";\nimport \"@openzeppelin/contracts/security/ReentrancyGuard.sol\";\nimport \"@openzeppelin/contracts/utils/math/SafeMath.sol\";\n\ninterface IUniswapV2Factory {\n    function createPair(address tokenA, address tokenB) external returns (address pair);\n}\n\ninterface IUniswapV2Router02 {\n    function factory() external pure returns (address);\n    function WETH() external pure returns (address);\n    function swapExactTokensForETHSupportingFeeOnTransferTokens(\n        uint256 amountIn,\n        uint256 amountOutMin,\n        address[] calldata path,\n        address to,\n        uint256 deadline\n    ) external;\n    function addLiquidityETH(\n        address token,\n        uint256 amountTokenDesired,\n        uint256 amountTokenMin,\n        uint256 amountETHMin,\n        address to,\n        uint256 deadline\n    ) external payable returns (uint256 amountToken, uint256 amountETH, uint256 liquidity);\n}\n\ncontract ReflectToken is ERC20, Ownable, ReentrancyGuard {\n    using SafeMath for uint256;\n\n    uint256 private constant MAX = ~uint256(0);\n    uint256 private constant TOTAL_SUPPLY = 1000000000 * 10**9;\n    uint256 private _rTotal = (MAX - (MAX % TOTAL_SUPPLY));\n    uint256 private _tTotal = TOTAL_SUPPLY;\n\n    uint256 public _taxFeeOnBuy = 5;\n    uint256 public _taxFeeOnSell = 10;\n\n    uint256 public _maxTxAmount = 5000000 * 10**9;\n    uint256 public _maxWalletSize = 10000000 * 10**9;\n    uint256 public _minimumTokensBeforeSwap = 100000 * 10**9;\n\n    IUniswapV2Router02 public uniswapV2Router;\n    address public uniswapV2Pair;\n\n    bool private _swapEnabled = true;\n    bool private _inSwap = false;\n\n    mapping (address => uint256) private _rOwned;\n    mapping (address => uint256) private _tOwned;\n    mapping (address => bool) private _isExcludedFromFee;\n    mapping (address => bool) public _isBot;\n\n    event SwapAndLiquify(uint256 tokensSwapped, uint256 ethReceived, uint256 tokensIntoLiquidity);\n\n    modifier lockTheSwap {\n        _inSwap = true;\n        _;\n        _inSwap = false;\n    }\n\n    constructor() ERC20(\"ReflectToken\", \"RFT\") {\n        _rOwned[_msgSender()] = _rTotal;\n\n        IUniswapV2Router02 _uniswapV2Router = IUniswapV2Router02(0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D);\n        uniswapV2Pair = IUniswapV2Factory(_uniswapV2Router.factory())\n            .createPair(address(this), _uniswapV2Router.WETH());\n        uniswapV2Router = _uniswapV2Router;\n\n        _isExcludedFromFee[owner()] = true;\n        _isExcludedFromFee[address(this)] = true;\n\n        emit Transfer(address(0), _msgSender(), _tTotal);\n    }\n\n    function balanceOf(address account) public view override returns (uint256) {\n        return tokenFromReflection(_rOwned[account]);\n    }\n\n    function transfer(address recipient, uint256 amount) public override returns (bool) {\n        _transfer(_msgSender(), recipient, amount);\n        return true;\n    }\n\n    function transferFrom(address sender, address recipient, uint256 amount) public override returns (bool) {\n        _transfer(sender, recipient, amount);\n        _approve(sender, _msgSender(), allowance(sender, _msgSender()).sub(amount, \"ERC20: transfer amount exceeds allowance\"));\n        return true;\n    }\n\n    function tokenFromReflection(uint256 rAmount) private view returns(uint256) {\n        require(rAmount <= _rTotal, \"Amount must be less than total reflections\");\n        uint256 currentRate = _getRate();\n        return rAmount.div(currentRate);\n    }\n\n    function _getRate() private view returns(uint256) {\n        (uint256 rSupply, uint256 tSupply) = _getCurrentSupply();\n        return rSupply.div(tSupply);\n    }\n\n    function _getCurrentSupply() private view returns(uint256, uint256) {\n        uint256 rSupply = _rTotal;\n        uint256 tSupply = _tTotal;\n        return (rSupply, tSupply);\n    }\n\n    function _transfer(address from, address to, uint256 amount) private {\n        require(from != address(0), \"ERC20: transfer from the zero address\");\n        require(to != address(0), \"ERC20: transfer to the zero address\");\n        require(amount > 0, \"Transfer amount must be greater than zero\");\n        require(!_isBot[from] && !_isBot[to], \"Bot is not allowed to transfer\");\n\n        if (from != owner() && to != owner() && to != address(0) && to != address(0xdead)) {\n            require(amount <= _maxTxAmount, \"Transfer amount exceeds the maxTxAmount.\");\n            if (to != uniswapV2Pair) {\n                require(balanceOf(to) + amount <= _maxWalletSize, \"Transfer amount exceeds the maxWalletSize.\");\n            }\n        }\n\n        uint256 contractTokenBalance = balanceOf(address(this));\n        bool overMinimumTokenBalance = contractTokenBalance >= _minimumTokensBeforeSwap;\n        \n        if (overMinimumTokenBalance && !_inSwap && from != uniswapV2Pair && _swapEnabled) {\n            swapAndLiquify(contractTokenBalance);\n        }\n\n        bool takeFee = true;\n        if(_isExcludedFromFee[from] || _isExcludedFromFee[to]){\n            takeFee = false;\n        }\n\n        _tokenTransfer(from, to, amount, takeFee);\n    }\n\n    function swapAndLiquify(uint256 contractTokenBalance) private lockTheSwap {\n        uint256 half = contractTokenBalance.div(2);\n        uint256 otherHalf = contractTokenBalance.sub(half);\n\n        uint256 initialBalance = address(this).balance;\n\n        swapTokensForEth(half);\n\n        uint256 newBalance = address(this).balance.sub(initialBalance);\n\n        addLiquidity(otherHalf, newBalance);\n        \n        emit SwapAndLiquify(half, newBalance, otherHalf);\n    }\n\n    function swapTokensForEth(uint256 tokenAmount) private {\n        address[] memory path = new address[](2);\n        path[0] = address(this);\n        path[1] = uniswapV2Router.WETH();\n\n        _approve(address(this), address(uniswapV2Router), tokenAmount);\n\n        uniswapV2Router.swapExactTokensForETHSupportingFeeOnTransferTokens(\n            tokenAmount,\n            0,\n            path,\n            address(this),\n            block.timestamp\n        );\n    }\n\n    function addLiquidity(uint256 tokenAmount, uint256 ethAmount) private {\n        _approve(address(this), address(uniswapV2Router), tokenAmount);\n\n        uniswapV2Router.addLiquidityETH{value: ethAmount}(\n            address(this),\n            tokenAmount,\n            0,\n            0,\n            owner(),\n            block.timestamp\n        );\n    }\n\n    function _tokenTransfer(address sender, address recipient, uint256 amount, bool takeFee) private {\n        uint256 tFee = 0;\n        if(takeFee) {\n            if(sender == uniswapV2Pair) {\n                tFee = amount.mul(_taxFeeOnBuy).div(100);\n            } else if(recipient == uniswapV2Pair) {\n                tFee = amount.mul(_taxFeeOnSell).div(100);\n            }\n        }\n\n        uint256 tTransferAmount = amount.sub(tFee);\n        uint256 currentRate = _getRate();\n\n        uint256 rAmount = amount.mul(currentRate);\n        uint256 rFee = tFee.mul(currentRate);\n        uint256 rTransferAmount = rAmount.sub(rFee);\n\n        _rOwned[sender] = _rOwned[sender].sub(rAmount);\n        _rOwned[recipient] = _rOwned[recipient].add(rTransferAmount);\n        _rOwned[address(this)] = _rOwned[address(this)].add(rFee);\n\n        emit Transfer(sender, recipient, tTransferAmount);\n        if(tFee > 0) {\n            emit Transfer(sender, address(this), tFee);\n        }\n    }\n\n    function excludeFromFee(address account) public onlyOwner {\n        _isExcludedFromFee[account] = true;\n    }\n    \n    function includeInFee(address account) public onlyOwner {\n        _isExcludedFromFee[account] = false;\n    }\n\n    function setTaxFeeOnBuy(uint256 taxFee) external onlyOwner() {\n        _taxFeeOnBuy = taxFee;\n    }\n\n    function setTaxFeeOnSell(uint256 taxFee) external onlyOwner() {\n        _taxFeeOnSell = taxFee;\n    }\n\n    function setMaxTxAmount(uint256 maxTxAmount) external onlyOwner() {\n        _maxTxAmount = maxTxAmount;\n    }\n\n    function setMaxWalletSize(uint256 maxWalletSize) external onlyOwner() {\n        _maxWalletSize = maxWalletSize;\n    }\n\n    function setSwapEnabled(bool _enabled) public onlyOwner {\n        _swapEnabled = _enabled;\n    }\n\n    function setIsBot(address account, bool isBot) external onlyOwner {\n        _isBot[account] = isBot;\n    }\n\n    receive() external payable {}\n}" ,
                     "answer": "To implement the ReflectToken contract, you should:\n\n1. Use OpenZeppelin's ERC20 as a base and extend it with reflection logic.\n2. Implement the reflection mechanism in the transfer functions.\n3. Create separate functions for buy and sell taxes.\n4. Use Uniswap interfaces for swapping and liquidity functions.\n5. Implement owner-only functions for adjusting contract parameters.\n6. Use modifiers to enforce transaction and wallet limits.\n7. Implement a simple anti-bot measure in the constructor or a separate function.\n\nKey points to consider:\n- Ensure mathematical operations are safe by using SafeMath or Solidity 0.8.0+ built-in overflow checks.\n- Implement reentrancy guards where necessary, especially in swapping functions.\n- Use events to log important state changes.\n- Thoroughly test all functions, especially the reflection mechanism and tax calculations.\n\nGrading Criteria:\n1. Functionality (40%): All required features are correctly implemented.\n2. Security (30%): Contract is secure against common vulnerabilities.\n3. Gas Optimization (15%): Code is optimized for gas efficiency.\n4. Code Quality (15%): Code is clean, well-commented, and follows Solidity best practices.",
-                    "topic": ["Smart Contracts", "DeFi", "Tokenomics"],
+                    "topic": ["Smart Contract", "DeFi", "Tokenomics"],
                     "category": "coding",
                     "id": "132"
                   },
@@ -1411,7 +1411,7 @@
                     "question": "Create a smart contract named PirateFlag based on the ERC721A standard to implement a pirate-themed NFT system. The contract should closely follow the structure and functionality of the provided CaptainBlackbeard contract. Requirements:\n\n1. Total supply limited to 999 tokens.\n2. Implement two minting phases:\n   a. CREW_MINT: 99 supply, 1 per wallet, 1 per transaction, price 0 ETH\n   b. PUBLIC_MINT: 900 supply, 50 per wallet, 10 per transaction, price 0.0059 ETH\n3. Include a reveal mechanism with pre-reveal and post-reveal URIs.\n4. Implement owner functions to toggle mint phases, set URIs, update supplies and prices.\n5. Use OpenZeppelin's Ownable and ReentrancyGuard.\n6. Implement the DefaultOperatorFilterer for OpenSea royalties.\n7. Include a secure withdrawal function with a 6% fee sent to a specified address.\n\nComplete the contract and ensure all functions are properly secured.",
                     "code": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\nimport \"erc721a/contracts/ERC721A.sol\";\nimport \"@openzeppelin/contracts/access/Ownable.sol\";\nimport \"@openzeppelin/contracts/security/ReentrancyGuard.sol\";\nimport \"./DefaultOperatorFilterer.sol\";\n\ncontract PirateFlag is ERC721A, Ownable, ReentrancyGuard, DefaultOperatorFilterer {\n    uint256 public constant MAX_SUPPLY = 999;\n    \n    uint256 public CREW_SUPPLY = 99;\n    uint256 public PUBLIC_SUPPLY = 900;\n    \n    bool public IS_CREW_ACTIVE = false;\n    bool public IS_PUBLIC_ACTIVE = false;\n    \n    uint256 public CREW_TX_LIMIT = 1;\n    uint256 public PUBLIC_TX_LIMIT = 10;\n    \n    uint256 public CREW_WALLET_LIMIT = 1;\n    uint256 public PUBLIC_WALLET_LIMIT = 50;\n    \n    uint256 public CREW_PRICE = 0 ether;\n    uint256 public PUBLIC_PRICE = 0.0059 ether;\n    \n    uint256 public CREW_COUNT = 0;\n    uint256 public PUBLIC_COUNT = 0;\n    \n    mapping(address => uint256) public CREW_Minted;\n    mapping(address => uint256) public PUBLIC_Minted;\n\n    bool public _revealed = false;\n\n    string private baseURI = \"\";\n    string private preRevealURI = \"https://ipfs.example.com/pre-reveal\";\n\n    address public constant RL_ADDRESS = 0xc9b5553910bA47719e0202fF9F617B8BE06b3A09;\n\n    constructor() ERC721A(\"PirateFlag\", \"PFLAG\") {}\n\n    function crewMint() external payable nonReentrant {\n        require(IS_CREW_ACTIVE, \"CREW_MINT is not active\");\n        require(CREW_COUNT + 1 <= CREW_SUPPLY, \"Exceeds CREW_SUPPLY\");\n        require(CREW_Minted[msg.sender] + 1 <= CREW_WALLET_LIMIT, \"Exceeds wallet limit\");\n        require(msg.value >= CREW_PRICE, \"Insufficient payment\");\n\n        CREW_COUNT++;\n        CREW_Minted[msg.sender]++;\n        _safeMint(msg.sender, 1);\n    }\n\n    function publicMint(uint256 quantity) external payable nonReentrant {\n        require(IS_PUBLIC_ACTIVE, \"PUBLIC_MINT is not active\");\n        require(PUBLIC_COUNT + quantity <= PUBLIC_SUPPLY, \"Exceeds PUBLIC_SUPPLY\");\n        require(PUBLIC_Minted[msg.sender] + quantity <= PUBLIC_WALLET_LIMIT, \"Exceeds wallet limit\");\n        require(quantity <= PUBLIC_TX_LIMIT, \"Exceeds transaction limit\");\n        require(msg.value >= PUBLIC_PRICE * quantity, \"Insufficient payment\");\n\n        PUBLIC_COUNT += quantity;\n        PUBLIC_Minted[msg.sender] += quantity;\n        _safeMint(msg.sender, quantity);\n    }\n\n    function setBaseURI(string calldata URI) external onlyOwner {\n        baseURI = URI;\n    }\n\n    function reveal(bool revealed, string calldata _baseURI) external onlyOwner {\n        _revealed = revealed;\n        baseURI = _baseURI;\n    }\n\n    function toggleCrewMintStatus() external onlyOwner {\n        IS_CREW_ACTIVE = !IS_CREW_ACTIVE;\n    }\n\n    function togglePublicMintStatus() external onlyOwner {\n        IS_PUBLIC_ACTIVE = !IS_PUBLIC_ACTIVE;\n    }\n\n    function setCrewSupply(uint256 _supply) external onlyOwner {\n        CREW_SUPPLY = _supply;\n    }\n\n    function setPublicSupply(uint256 _supply) external onlyOwner {\n        PUBLIC_SUPPLY = _supply;\n    }\n\n    function setCrewPrice(uint256 _price) external onlyOwner {\n        CREW_PRICE = _price;\n    }\n\n    function setPublicPrice(uint256 _price) external onlyOwner {\n        PUBLIC_PRICE = _price;\n    }\n\n    function withdraw() external onlyOwner {\n        uint256 balance = address(this).balance;\n        uint256 fee = (balance * 6) / 100;\n        (bool feeSuccess, ) = payable(RL_ADDRESS).call{value: fee}(\"\");\n        require(feeSuccess, \"Fee transfer failed\");\n        (bool ownerSuccess, ) = payable(owner()).call{value: balance - fee}(\"\");\n        require(ownerSuccess, \"Owner transfer failed\");\n    }\n\n    function _baseURI() internal view virtual override returns (string memory) {\n        return baseURI;\n    }\n\n    function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {\n        if (!_exists(tokenId)) revert URIQueryForNonexistentToken();\n\n        if (!_revealed) {\n            return preRevealURI;\n        }\n\n        string memory base = _baseURI();\n        return bytes(base).length != 0 ? string(abi.encodePacked(base, _toString(tokenId))) : '';\n    }\n\n    function setApprovalForAll(address operator, bool approved) public override onlyAllowedOperatorApproval(operator) {\n        super.setApprovalForAll(operator, approved);\n    }\n\n    function approve(address operator, uint256 tokenId) public override onlyAllowedOperatorApproval(operator) {\n        super.approve(operator, tokenId);\n    }\n\n    function transferFrom(address from, address to, uint256 tokenId) public override onlyAllowedOperator(from) {\n        super.transferFrom(from, to, tokenId);\n    }\n\n    function safeTransferFrom(address from, address to, uint256 tokenId) public override onlyAllowedOperator(from) {\n        super.safeTransferFrom(from, to, tokenId);\n    }\n\n    function safeTransferFrom(address from, address to, uint256 tokenId, bytes memory data) public override onlyAllowedOperator(from) {\n        super.safeTransferFrom(from, to, tokenId, data);\n    }\n}",
                     "answer": "To complete the PirateFlag contract, you need to implement the following functions:\n\n1. crewMint: Check if crew mint is active, validate quantity and payment, update minted count, and call _safeMint.\n2. publicMint: Similar to crewMint but for public minting phase.\n3. reveal: Set the revealed state and update baseURI.\n4. setBaseURI: Update the baseURI variable.\n5. toggleCrewMintStatus and togglePublicMintStatus: Toggle the respective minting phase states.\n6. setCrewSupply and setPublicSupply: Update the supply for each minting phase.\n7. setCrewPrice and setPublicPrice: Update the price for each minting phase.\n8. updateMaxSupply: Update the maximum supply of tokens.\n9. withdraw: Transfer 6% of the contract balance to FEE_ADDRESS and the rest to the owner.\n10. tokenURI: Return the appropriate URI based on the revealed state.\n\nEnsure all functions have proper access control, use ReentrancyGuard where necessary, and implement checks to prevent overselling or underpayment. The contract should closely mirror the functionality of the CaptainBlackbeard contract.\n\nGrading Criteria:\n1. Functionality (40%): All required functions are implemented correctly and match the original contract's behavior.\n2. Security (30%): Proper use of access control, ReentrancyGuard, and input validation.\n3. Gas Optimization (15%): Efficient use of storage and operations.\n4. Code Quality (15%): Clear, well-commented, and following Solidity best practices.",
-                    "topic": ["Smart Contracts", "NFT", "Solidity"],
+                    "topic": ["Smart Contract"],
                     "category": "coding",
                     "id": "133"
                     },
@@ -1495,7 +1495,7 @@
                                     "answer": "ERC-1155 uses a URI value for metadata that allows for ID substitution by clients. If the string {id} exists in any URI, clients must replace this with the actual token ID in hexadecimal form. This allows a large number of tokens to use the same on-chain string by defining a URI once. The substituted hexadecimal ID must be lowercase alphanumeric with no 0x prefix and zero-padded to 64 hex characters length if necessary.",
                                     "topic": [
                                         "Ethereum", 
-                                        "smart contract"
+                                        "Smart Contract"
                                     ],
                                     "category": "knowledge",
                                     "id": "142"
@@ -1506,7 +1506,7 @@
                                     "answer": "With EIP-1559, transaction ordering may depend on client implementation details when transactions have the same priority fee. It's recommended to sort transactions with the same priority fee by the time they were received to protect against spamming attacks. Miners should still prefer transactions with higher gas premium.",
                                     "topic": [
                                         "Ethereum", 
-                                        "security"
+                                        "Security"
                                     ],
                                     "category": "system design",
                                     "id": "143"
@@ -1517,7 +1517,7 @@
                                     "answer": "EIP-3860 handles excessive initcode size in different ways depending on the scenario: 1) For create transactions, if the length of transaction data (initcode) exceeds MAX_INITCODE_SIZE, the transaction is considered invalid. 2) For CREATE or CREATE2 instructions, if the length of initcode exceeds MAX_INITCODE_SIZE, the instruction execution exceptionally aborts (as if it runs out of gas).",
                                     "topic": [
                                         "Ethereum", 
-                                        "smart contract"
+                                        "Smart Contract"
                                     ],
                                     "category": "problem solving",
                                     "id": "144"
@@ -1528,7 +1528,7 @@
                                     "answer": "New accounts are created using a 'factory' contract. The initCode field in a UserOperation, if non-empty, is parsed as a 20-byte address (the factory) followed by calldata to pass to this address. The factory is expected to use CREATE2 to create the wallet, ensuring deterministic address generation. The created contract should accept a call to validateUserOp to validate the UserOp's signature.",
                                     "topic": [
                                         "Ethereum", 
-                                        "smart contract"
+                                        "Smart Contract"
                                     ],
                                     "category": "system design",
                                     "id": "145"
@@ -1560,8 +1560,8 @@
                                     "code": "",
                                     "answer": "Wallet implementers must verify the origin of the request against the 'scheme' and 'domain' fields in the SIWE Message to prevent phishing attacks. They should read the origin from a trusted data source such as the browser window or WalletConnect sessions. If the origin doesn't match the message contents, the wallet should reject the request or warn the user in developer mode. Failing to implement proper origin verification could lead to phishing attacks where malicious actors could trick users into signing messages for unintended domains.",
                                     "topic": [
-                                        "security", 
-                                        "blockchain fundamental"
+                                        "Security", 
+                                        "Blockchain Fundamental"
                                     ],
                                     "category": "problem solving",
                                     "id": "148"
@@ -1572,7 +1572,7 @@
                                     "answer": "An effective fee estimation and management system combining RBF, CPFP, and CPFP carve-out could work as follows: 1. Initial fee estimation: Use recent blockchain data to estimate an appropriate fee for the desired confirmation time. 2. RBF preparation: Enable opt-in RBF by default for all transactions, allowing for future fee bumping if necessary. 3. Monitoring: Continuously monitor the mempool and newly mined blocks to reassess the transaction's position relative to other pending transactions. 4. RBF triggering: If the transaction is not confirming as quickly as desired, attempt an RBF bump first. 5. CPFP fallback: If RBF fails, attempt a CPFP bump by spending a change output. 6. CPFP carve-out utilization: Use the CPFP carve-out to ensure at least one fee-bumping child can be added.",
                                     "topic": [
                                         "Bitcoin", 
-                                        "blockchain fundamental"
+                                        "Blockchain Fundamental"
                                     ],
                                     "category": "system design",
                                     "id": "149"
@@ -1583,7 +1583,7 @@
                                     "answer": "Compact block relay contributes to reducing block-finding races by minimizing the time between when one miner announces a new block and when other miners receive that block. Instead of receiving redundant unconfirmed transactions, compact blocks allow a peer to send a short 6-byte identifier for each transaction. The receiving node can then check its mempool for those transactions and only request copies of missing ones. This reduces the advantage larger miners might have in block-finding races and helps preserve decentralization.",
                                     "topic": [
                                         "Bitcoin", 
-                                        "blockchain fundamental"
+                                        "Blockchain Fundamental"
                                     ],
                                     "category": "system design",
                                     "id": "150"
@@ -1594,7 +1594,7 @@
                                     "answer": "Compact block filters offer improved privacy compared to bloom filters, but still have some privacy implications: 1. Unlike bloom filters, compact block filters are generated by full nodes, not by the client. This prevents the client from revealing specific addresses or patterns it's interested in. 2. Compact block filters allow clients to download filters from multiple peers, making it harder for a single peer to build a profile of the client's interests. 3. However, the client still reveals some information by requesting specific blocks after matching a filter.",
                                     "topic": [
                                         "Bitcoin", 
-                                        "security"
+                                        "Security"
                                     ],
                                     "category": "knowledge",
                                     "id": "151"
@@ -1605,7 +1605,7 @@
                                     "answer": "Benefits include faster transaction detection and reduced bandwidth for the exchange. Risks include privacy concerns, potential centralization, and increased network strain if widely adopted. Adopting this system might also affect mempool dynamics and have security implications if vulnerabilities arise.",
                                     "topic": [
                                         "Bitcoin", 
-                                        "blockchain fundamental"
+                                        "Blockchain Fundamental"
                                     ],
                                     "category": "system design",
                                     "id": "152"
@@ -1616,7 +1616,7 @@
                                     "answer": "Each method presents a trade-off between miner signaling (BIP9) and user activation (BIP8). BIP9 relies on high miner coordination, while BIP8 empowers full node operators. Speedy Trial offers a balance by quickly signaling support or transitioning to alternative activation methods.",
                                     "topic": [
                                         "Bitcoin", 
-                                        "consensus mechanisms"
+                                        "Consensus Mechanisms"
                                     ],
                                     "category": "system design",
                                     "id": "153"
@@ -1627,7 +1627,7 @@
                                     "answer": "To secure the flash loan feature, implement: 1) Non-reentrancy for balance-changing functions, 2) Restricted function calls to predefined contracts, 3) Trusted source verification for handling borrowed funds, 4) Separate transactions for governance actions, 5) Precise calculations for liquidity pools and rewards. These measures prevent recursive exploits, limit attack surfaces, ensure authorized operations, protect governance, and maintain calculation accuracy.",
                                     "topic": [
                                         "DeFi",
-                                        "security"
+                                        "Security"
                                     ],
                                     "category": "system design",
                                     "id": "154"
@@ -1638,7 +1638,7 @@
                                     "answer": "Approach threat modeling for a complex DeFi protocol by: 1) Breaking down the protocol into component contracts, 2) Identifying all managed assets, 3) Defining trust boundaries, 4) Analyzing attack surfaces, 5) Identifying potential threats (e.g., front-running, flash loan attacks), 6) Assessing risks, 7) Developing mitigation strategies, 8) Continuously reviewing the model, 9) Considering formal verification, and 10) Engaging external auditors.",
                                     "topic": [
                                         "DeFi",
-                                        "security"
+                                        "Security"
                                     ],
                                     "category": "system design",
                                     "id": "155"
@@ -1649,7 +1649,7 @@
                                     "answer": "Potential vulnerabilities include: 1) Flash loan attacks, 2) Whale dominance, 3) Low participation, 4) Time-based attacks, and 5) Vote buying. Mitigations: 1) Implement time-locks and multi-block processes for governance actions, 2) Use quadratic voting, 3) Implement vote delegation, 4) Set quorum requirements, 5) Use snapshot voting, 6) Implement gradual execution of proposals, and 7) Maintain a transparent proposal process.",
                                     "topic": [
                                         "DAO & Governance",
-                                        "security"
+                                        "Security"
                                     ],
                                     "category": "system design",
                                     "id": "156"
@@ -1659,8 +1659,8 @@
                                     "code": "",
                                     "answer": "To implement secure storage for upgradeable contracts: 1) Use unstructured storage with keccak256 hashes for slot assignment, 2) Implement a separate storage contract, 3) Use proxy patterns, 4) Implement strict versioning, 5) Utilize storage libraries, 6) Avoid dynamic storage in implementation contracts, 7) Leave storage gaps for future use, 8) Consider the Diamond Storage pattern for complex systems, 9) Conduct thorough testing and formal verification.",
                                     "topic": [
-                                        "smart contract",
-                                        "security"
+                                        "Smart Contract",
+                                        "Security"
                                     ],
                                     "category": "system design",
                                     "id": "157"
@@ -1671,7 +1671,7 @@
                                     "answer": "Gas griefing attacks manipulate gas consumption to cause DoS or economic losses. Mitigations: 1) Implement gas limit checks, 2) Avoid unbounded loops, 3) Separate critical operations, 4) Set gas price limits, 5) Optimize gas usage, 6) Use transfer() instead of send(), 7) Avoid reliance on block.gaslimit, 8) Implement circuit breakers, 9) Monitor gas usage, 10) Provide clear user warnings about potential gas costs, 11) Consider Layer 2 solutions for very complex systems.",
                                     "topic": [
                                         "DeFi",
-                                        "security"
+                                        "Security"
                                     ],
                                     "category": "problem solving",
                                     "id": "158"
@@ -1681,8 +1681,8 @@
                                     "code": "",
                                     "answer": "Key considerations: 1) Inflation control, 2) Protection against economic attacks, 3) Governance attack prevention, 4) Precision in calculations, 5) Flashloan vulnerability mitigation, 6) Balanced staking mechanisms, 7) Proper incentive alignment. Implement: high-precision math, economic modeling, timelocks for governance, adaptive yield rates, sustainable token emission, decentralized oracles, formal verification, gradual feature rollout, regular audits, and emergency pause functions.",
                                     "topic": [
-                                        "tokenomics",
-                                        "security"
+                                        "Tokenomics",
+                                        "Security"
                                     ],
                                     "category": "system design",
                                     "id": "159"
@@ -1692,8 +1692,8 @@
                                     "code": "",
                                     "answer": "To resist front-running: 1) Use commit-reveal schemes, 2) Implement timelock periods, 3) Use batch auctions, 4) Implement maximum extractable value (MEV) protection, 5) Use confidential transactions where possible, 6) Implement speed bumps or delay mechanisms, 7) Use decentralized sequencers, 8) Implement fair ordering protocols, 9) Use layer 2 solutions with better transaction ordering guarantees, 10) Educate users about the risks and provide tools to detect front-running attempts.",
                                     "topic": [
-                                        "smart contract",
-                                        "security"
+                                        "Smart Contract",
+                                        "Security"
                                     ],
                                     "category": "problem solving",
                                     "id": "160"
@@ -1703,8 +1703,8 @@
                                     "code": "",
                                     "answer": "Implications: 1) Miner manipulation, 2) Network delays, 3) Inconsistencies across nodes. Mitigations: 1) Use block numbers instead of timestamps for critical timing, 2) Allow for a margin of error in time-dependent calculations, 3) Avoid precise time comparisons, 4) Use oracles for high-precision timing needs, 5) Implement time delay mechanisms that span multiple blocks, 6) Educate users about potential timing discrepancies.",
                                     "topic": [
-                                        "smart contract",
-                                        "security"
+                                        "Smart Contract",
+                                        "Security"
                                     ],
                                     "category": "problem solving",
                                     "id": "161"
@@ -1714,8 +1714,8 @@
                                     "code": "",
                                     "answer": "To ensure proper access control: 1) Implement role-based access control (RBAC), 2) Use a centralized access control contract, 3) Implement the principle of least privilege, 4) Use function modifiers for access checks, 5) Implement two-step ownership transfers, 6) Use time locks for critical role changes, 7) Implement emergency access controls, 8) Regularly audit and update access controls, 9) Use events to log all access control changes, 10) Implement secure key management practices.",
                                     "topic": [
-                                        "smart contract",
-                                        "security"
+                                        "Smart Contract",
+                                        "Security"
                                     ],
                                     "category": "system design",
                                     "id": "162"
@@ -1725,8 +1725,8 @@
                                     "code": "",
                                     "answer": "To resist DoS attacks: 1) Avoid unbounded loops, 2) Implement pull-over-push patterns for payments, 3) Avoid reliance on block gas limits, 4) Use circuit breakers or pause mechanisms, 5) Implement rate limiting, 6) Avoid calls to untrusted contracts in critical functions, 7) Use events for monitoring, 8) Implement proper access controls, 9) Design for graceful failure, 10) Regularly update and patch vulnerabilities.",
                                     "topic": [
-                                        "smart contract",
-                                        "security"
+                                        "Smart Contract",
+                                        "Security"
                                     ],
                                     "category": "problem solving",
                                     "id": "163"
@@ -1736,8 +1736,8 @@
                                     "code": "",
                                     "answer": "Best practices: 1) Use SafeMath libraries for all arithmetic operations, 2) Consider extreme values and edge cases, 3) Use appropriate data types to prevent overflows, 4) Implement checks before operations, 5) Use multiplication before division to preserve precision, 6) Be cautious with rounding and truncation, 7) Use fixed-point arithmetic for precise calculations, 8) Implement bounds checking, 9) Use formal verification for critical mathematical functions.",
                                     "topic": [
-                                        "smart contract",
-                                        "security"
+                                        "Smart Contract",
+                                        "Security"
                                     ],
                                     "category": "problem solving",
                                     "id": "164"
@@ -1747,8 +1747,8 @@
                                     "code": "",
                                     "answer": "Secure random number generation: 1) Avoid using block variables (timestamp, difficulty) as sole sources, 2) Use commit-reveal schemes, 3) Implement multi-party computation, 4) Use verifiable delay functions (VDFs), 5) Utilize oracle services for randomness, 6) Implement shuffling algorithms, 7) Use hash functions with multiple inputs, 8) Consider off-chain random number generation with on-chain verification, 9) Implement entropy pools, 10) Use hardware-based random number generators with proof of generation.",
                                     "topic": [
-                                        "smart contract",
-                                        "security"
+                                        "Smart Contract",
+                                        "Security"
                                     ],
                                     "category": "problem solving",
                                     "id": "165"
@@ -1758,8 +1758,8 @@
                                     "code": "",
                                     "answer": "Best practices for timelocks: 1) Use a separate timelock contract, 2) Implement multi-sig requirements for queuing actions, 3) Allow cancellation of queued actions, 4) Set appropriate delay periods based on action criticality, 5) Emit events for all timelock operations, 6) Implement access controls for queuing and executing actions, 7) Use versioning for actions to prevent replay attacks, 8) Consider implementing a grace period for execution, 9) Allow parameter updates only through the timelock, 10) Regularly review and audit timelock operations.",
                                     "topic": [
-                                        "smart contract",
-                                        "security"
+                                        "Smart Contract",
+                                        "Security"
                                     ],
                                     "category": "system design",
                                     "id": "166"
@@ -1769,7 +1769,7 @@
                                     "code": "",
                                     "answer": "For secure signature verification: 1) Use ecrecover carefully, checking its return value, 2) Implement replay attack protection (e.g., nonces), 3) Validate signature length and components, 4) Use EIP-712 for structured data signing, 5) Implement signature expiration, 6) Use multi-sig schemes for critical operations, 7) Verify the signer's authorization, 8) Protect against signature malleability, 9) Use libraries like OpenZeppelin's ECDSA, 10) Implement proper error handling for verification failures.",
                                     "topic": [
-                                        "smart contract",
+                                        "Smart Contract",
                                         "Cryptography"
                                     ],
                                     "category": "problem solving",
@@ -1780,8 +1780,8 @@
                                     "code": "",
                                     "answer": "Cross-chain security considerations: 1) Use secure bridge protocols, 2) Implement proper validation of cross-chain messages, 3) Use lockup periods for high-value transfers, 4) Implement replay protection across chains, 5) Consider differences in finality between chains, 6) Use decentralized oracles for cross-chain data, 7) Implement proper error handling for failed cross-chain operations, 8) Use unique identifiers for each chain, 9) Implement rate limiting for cross-chain operations, 10) Regularly audit and update cross-chain components.",
                                     "topic": [
-                                        "blockchain fundamental",
-                                        "security"
+                                        "Blockchain Fundamental",
+                                        "Security"
                                     ],
                                     "category": "system design",
                                     "id": "168"
@@ -1792,7 +1792,7 @@
                                     "answer": "Secure DAO voting best practices: 1) Implement token lock-up during voting periods, 2) Use cryptographic techniques for vote privacy, 3) Implement proper access controls, 4) Use time locks for proposal execution, 5) Implement vote delegation securely, 6) Use quadratic voting to prevent whale dominance, 7) Implement proper event logging, 8) Use snapshots to prevent last-minute token transfers, 9) Implement a minimum voting period, 10) Regularly audit the voting system.",
                                     "topic": [
                                         "DAO & Governance",
-                                        "security"
+                                        "Security"
                                     ],
                                     "category": "system design",
                                     "id": "169"
@@ -1803,7 +1803,7 @@
                                     "answer": "To secure smart contracts interacting with external data: 1) Use decentralized oracle networks, 2) Implement proper data validation, 3) Use multiple data sources, 4) Implement circuit breakers for abnormal data, 5) Use time-weighted average prices, 6) Implement proper error handling for API failures, 7) Use cryptographic proofs for data integrity, 8) Implement rate limiting for data requests, 9) Regularly audit and update the data interaction logic, 10) Use secure authentication methods for API calls.",
                                     "topic": [
                                         "DeFi",
-                                        "smart contract"
+                                        "Smart Contract"
                                     ],
                                     "category": "problem solving",
                                     "id": "170"
@@ -1813,8 +1813,8 @@
                                     "code": "",
                                     "answer": "Secure time-based functionality: 1) Use block numbers instead of timestamps for critical timing, 2) Implement tolerance windows for time-sensitive operations, 3) Use oracles for high-precision timing needs, 4) Avoid reliance on block.timestamp for randomness, 5) Implement proper error handling for timing-related issues, 6) Use events to log time-sensitive actions, 7) Implement access controls for time-related parameter updates, 8) Regularly audit time-based functionality, 9) Consider network congestion in time estimates, 10) Use formal verification for critical time-based logic.",
                                     "topic": [
-                                        "smart contract",
-                                        "security"
+                                        "Smart Contract",
+                                        "Security"
                                     ],
                                     "category": "system design",
                                     "id": "171"
@@ -1824,8 +1824,8 @@
                                     "code": "",
                                     "answer": "Secure commit-reveal implementation: 1) Use cryptographic hash functions for commitments, 2) Implement proper timelock mechanisms between commit and reveal phases, 3) Use events to log all commit and reveal actions, 4) Implement proper error handling for timeout scenarios, 5) Use access controls to prevent early reveals, 6) Implement protection against front-running in the reveal phase, 7) Use formal verification for critical commit-reveal logic, 8) Regularly audit commit-reveal contracts, 9) Consider implementing a forfeit mechanism for non-reveals, 10) Use secure random number generation if needed in the scheme.",
                                     "topic": [
-                                        "smart contract",
-                                        "security"
+                                        "Smart Contract",
+                                        "Security"
                                     ],
                                     "category": "problem solving",
                                     "id": "172"
@@ -1836,7 +1836,7 @@
                                     "answer": "ASIC attacks in Solana could occur if an attacker uses specialized hardware to generate PoH sequences faster than the rest of the network, allowing them to manipulate transaction ordering or finality. However, the PoH sequence’s cryptographic properties make it resistant to such attacks. Each hash in the sequence is dependent on the previous one, meaning that even with an ASIC, the attacker cannot parallelize the computation. Additionally, PoH relies on real-time constraints, meaning that the attacker would need to significantly outpace the network in real time, which becomes impractical. The network further mitigates this risk by periodically injecting random invalid hashes, making it harder for ASIC-equipped attackers to predict the next valid state.",
                                     "topic": [
                                         "Solana",
-                                        "consensus mechanisms"
+                                        "Consensus Mechanisms"
                                     ],
                                     "category": "problem solving",
                                     "id": "173"
@@ -1847,7 +1847,7 @@
                                     "answer": "In the event of a complete failure of all validators, Solana’s recovery process allows the ledger to be fully reconstructed from any point in history. New validators can generate a valid fork by appending new PoH sequences and transactions to the ledger. However, achieving consensus requires a supermajority of validators to stake their coins and confirm the new state. The network uses a dynamic unstaking process to ensure that inactive or missing validators are gradually removed from the consensus pool. Once a sufficient number of new validators have joined and staked their coins, the network can resume operations and reach supermajority consensus, ensuring the blockchain’s continuity.",
                                     "topic": [
                                         "Solana",
-                                        "consensus mechanisms"
+                                        "Consensus Mechanisms"
                                     ],
                                     "category": "system design",
                                     "id": "174"
@@ -1858,7 +1858,7 @@
                                     "answer": "In Solana, smart contract state is stored in non-executable accounts, enabling flexible state management across multiple accounts, unlike Ethereum where contract data is stored within the contract itself. This approach allows Solana programs to access and modify state across multiple accounts, fostering more granular control over state, while Ethereum contracts have to use storage directly tied to their own contract.",
                                     "topic": [
                                         "Solana",
-                                        "smart contract"
+                                        "Smart Contract"
                                     ],
                                     "category": "system design",
                                     "id": "175"
@@ -1869,7 +1869,7 @@
                                     "answer": "Unlike Ethereum, where the nonce field prevents replay attacks by tracking the number of transactions sent from an account, Solana does not require a nonce for accounts. Instead, Solana ensures transaction uniqueness by incorporating signatures and message hashes. Each transaction must be signed by a valid private key and the combination of signatures and recent blockhashes guarantees that transactions cannot be processed multiple times, ensuring security without the need for account-based nonces.",
                                     "topic": [
                                         "Solana",
-                                        "security"
+                                        "Security"
                                     ],
                                     "category": "system design",
                                     "id": "176"
@@ -1880,7 +1880,7 @@
                                     "answer": "Rent fees in Solana are charged to accounts that do not have sufficient balance to cover 2 years of storage costs. Rent-exempt accounts, which maintain a balance above this threshold, avoid these recurring fees. If a program fails to enforce rent-exemption, accounts may eventually be deleted due to insufficient balance, leading to potential loss of critical program state or data. This deletion risk highlights the need for developers to ensure that storage accounts are either well-funded or designed to handle such failures gracefully.",
                                     "topic": [
                                         "Solana",
-                                        "blockchain fundamental"
+                                        "Blockchain Fundamental"
                                     ],
                                     "category": "problem solving",
                                     "id": "177"
@@ -1892,7 +1892,7 @@
                                     "answer": "In Solana, programs can create new accounts using a combination of signing authorities and syscalls. The account’s signing authority, typically tied to the private key, must approve account creation. Programs derive new addresses using Program Derived Addresses (PDAs) and claim them securely via syscalls. This process ensures that accounts created during program execution can only be accessed and modified by the program that owns them, securing account management across the network.",
                                     "topic": [
                                         "Solana",
-                                        "smart contract"
+                                        "Smart Contract"
                                     ],
                                     "category": "system design",
                                     "id": "178"
@@ -1903,7 +1903,7 @@
                                     "answer": "Creating a new token: Use the 'spl-token create-token' command to create a new Mint Account. Minting tokens: Use the 'spl-token mint <TOKEN_ADDRESS> <TOKEN_AMOUNT>' command to create new units of a specific token and add them to a Token Account. Transferring tokens: Use the 'spl-token transfer <TOKEN_ADDRESS> <TOKEN_AMOUNT> <RECIPIENT_ADDRESS>' command to transfer units of a token between two Token Accounts. Each operation involves specific Token Program instructions and requires appropriate authority signatures.",
                                     "topic": [
                                         "Solana",
-                                        "smart contract"
+                                        "Smart Contract"
                                     ],
                                     "category": "system design",
                                     "id": "179"
@@ -1914,7 +1914,7 @@
                                     "answer": "To use an Address Lookup Table (ALT) in a v0 transaction, developers must create a versioned transaction message that includes the ALT account. The instructions in the transaction remain unchanged from legacy transactions, but the v0 message allows the use of compressed addresses from the ALT, extending the transaction’s capacity for interacting with more accounts. The transaction must be signed before being sent to the network.",
                                     "topic": [
                                         "Solana",
-                                        "smart contract"
+                                        "Smart Contract"
                                     ],
                                     "category": "system design",
                                     "id": "180"
@@ -1947,7 +1947,7 @@
                                     "answer": "A new smart contract wallet system could implement: 1) Multi-signature functionality requiring M-of-N signatures for transactions. 2) Time-locks for large transactions. 3) Daily spending limits. 4) Integration with hardware security modules for key management. 5) Recovery mechanisms using social recovery or backup keys. To balance security and usability, the wallet could use proxy contracts to minimize gas costs for upgrades, and implement batched transactions to reduce fees for complex operations. User-friendly interfaces and clear documentation would be crucial for adoption.",
                                     "topic": [
                                         "Ethereum",
-                                        "smart contract"
+                                        "Smart Contract"
                                     ],
                                     "category": "system design",
                                     "id": "183"
@@ -1969,7 +1969,7 @@
                                     "answer": "An effective nonce management system in a high-concurrency environment could include:\n1. A centralized nonce tracking service with distributed caching\n2. Optimistic nonce allocation with conflict resolution\n3. Nonce reservation system with time-based expiration\n4. Adaptive nonce prediction based on network conditions\n5. Automatic nonce recovery and reallocation for failed transactions\n\nThe system should maintain an in-memory cache of the latest nonce for each account, with periodic synchronization to the blockchain. It should use optimistic locking to handle concurrent requests and implement a fallback mechanism for conflict resolution. Performance can be evaluated using metrics such as throughput, latency, and conflict rate under various load conditions. Reliability can be assessed by measuring the system's ability to maintain accurate nonce order and recover from failures.",
                                     "topic": [
                                         "Ethereum",
-                                        "smart contract"
+                                        "Smart Contract"
                                     ],
                                     "category": "system design",
                                     "id": "185"
@@ -1980,7 +1980,7 @@
                                     "answer": "A new transaction type for complex smart contract interactions could include:\n\n1. Structure:\n   - Standard fields: nonce, gasPrice, gasLimit, to, value, data\n   - New fields:\n     a. interactionType: Specifies the type of complex interaction\n     b. dependencies: List of other transaction hashes this transaction depends on\n     c. fallbackActions: Alternative actions if main interaction fails\n     d. validityPeriod: Time window for transaction execution\n\n2. Processing flow:\n   a. Initial validation of transaction format and signature\n   b. Check and wait for dependent transactions if specified\n   c. Execute pre-flight simulation to estimate gas costs and effects\n   d. If within validityPeriod, proceed with main interaction execution\n   e. If main interaction fails, attempt fallbackActions\n   f. Update state and emit enhanced event logs\n\nThis new type would allow for conditional executions, transaction bundling, and more complex state transitions in a single transaction, improving composability and efficiency of DApp interactions.",
                                     "topic": [
                                         "Ethereum",
-                                        "smart contract"
+                                        "Smart Contract"
                                     ],
                                     "category": "system design",
                                     "id": "186"
@@ -1991,7 +1991,7 @@
                                     "answer": "Distributed system design for offline signing and online broadcasting:\n\n1. Architecture:\n   a. Offline signing clusters with air-gapped security\n   b. Online broadcasting nodes connected to the Ethereum network\n   c. Secure, one-way data transfer mechanism between offline and online systems\n   d. Load balancers for distributing signing and broadcasting tasks\n   e. Redundant data storage for transaction queue management\n\n2. Process flow:\n   a. Transaction requests queued in a distributed message broker\n   b. Offline clusters pull batches of unsigned transactions\n   c. Hardware Security Modules (HSMs) perform signing operations\n   d. Signed transactions transferred to online nodes via one-way data diodes\n   e. Online nodes validate and broadcast transactions to the Ethereum network\n\n3. Security measures:\n   a. Multi-factor authentication for offline signing access\n   b. Threshold signing schemes for high-value transactions\n   c. Regular key rotation and backup procedures\n   d. Encryption of data in transit and at rest\n\n4. Fault tolerance:\n   a. Implement multiple signing and broadcasting clusters in different geographic locations\n   b. Use consensus algorithms for cluster coordination\n   c. Employ automatic failover and recovery mechanisms\n\n5. Scalability:\n   a. Horizontally scalable architecture for both offline and online components\n   b. Dynamic resource allocation based on transaction volume\n   c. Sharding of transaction data for improved parallelism\n\nThis system should be able to handle a high volume of transactions while maintaining a clear separation between the signing and broadcasting processes, enhancing security and reducing the risk of private key exposure.",
                                     "topic": [
                                         "Ethereum",
-                                        "smart contract"
+                                        "Smart Contract"
                                     ],
                                     "category": "system design",
                                     "id": "187"
@@ -2022,7 +2022,7 @@
                                     "question": "Design a complex multi-level inheritance contract system, including at least three levels of inheritance and implementing a diamond inheritance pattern. Analyze potential problems and solutions arising from this structure.",
                                     "code": "",
                                     "answer": "A complex multi-level inheritance contract system could be structured as follows:\n\n1. Base contracts:\n   - Ownable: Basic access control\n   - Pausable: Ability to pause contract functionality\n   - ERC20: Token standard implementation\n\n2. Intermediate contracts:\n   - SecureToken: Inherits from Ownable and ERC20\n   - FlexibleToken: Inherits from Pausable and ERC20\n\n3. Top-level contract:\n   - AdvancedToken: Inherits from SecureToken and FlexibleToken\n\nDiamond inheritance is implemented in the AdvancedToken contract, which inherits from both SecureToken and FlexibleToken, both of which inherit from ERC20.\n\nPotential problems:\n1. Function name clashes\n2. Ambiguity in the order of execution for inherited functions\n3. Increased gas costs due to contract complexity\n4. Potential for unintended interactions between inherited features\n\nSolutions:\n1. Use explicit override keywords and super calls to resolve function clashes\n2. Carefully order inheritance to ensure desired function execution order\n3. Implement a factory pattern for deploying smaller, specialized contracts\n4. Extensive testing to catch unintended interactions\n5. Consider using libraries instead of inheritance for some functionality\n\nThis system demonstrates advanced Solidity concepts while highlighting the complexities of multi-level inheritance in smart contract design.",
-                                    "topic": ["smart contract", "security"],
+                                    "topic": ["Smart Contract", "Security"],
                                     "category": "system design",
                                     "id": "190"
                                 },
@@ -2030,7 +2030,7 @@
                                     "question": "Design a gas-efficient voting system for a decentralized autonomous organization (DAO) that can handle large numbers of voters and proposals, while ensuring vote privacy and preventing double voting.",
                                     "code": "",
                                     "answer": "The voting system should include:\n1. Efficient storage of voter information and proposals\n2. Commit-reveal scheme for vote privacy\n3. Merkle tree usage for gas-efficient vote verification\n4. Batch processing of votes\n5. Quadratic voting mechanism\n6. Time-lock for vote finalization\n\nKey features:\n- Use of mappings for constant-time voter and proposal lookups\n- Implementation of a commit-reveal scheme using keccak256 hashes\n- Merkle proofs for validating voter eligibility\n- Optimized storage of voting results using bit manipulation\n- Events for vote casting and result declaration\n\nConsiderations:\n- Balance between on-chain and off-chain computation\n- Resistance to common voting attacks (e.g., Sybil attacks)\n- Gas cost analysis for different voting scenarios\n- Thorough testing of edge cases and attack vectors\n- Clear documentation of the voting process for users",
-                                    "topic": ["DAO & Governance", "smart contract"],
+                                    "topic": ["DAO & Governance", "Smart Contract"],
                                     "category": "system design",
                                     "id": "191"
                                 },
@@ -2039,7 +2039,7 @@
                                     "question": "Compare TLSNotary proofs and Intel SGX in terms of providing data authenticity for oracles. Discuss their trust assumptions and analyze scenarios where one method might be preferable to the other.",
                                     "code": "",
                                     "answer": "TLSNotary proofs and Intel SGX are two different approaches to providing data authenticity for oracles:\n\nTLSNotary proofs:\n1. Trust model: Relies on the security of TLS and the integrity of an auditor (e.g., AWS instance).\n2. Advantages: Does not require specialized hardware, can work with any HTTPS source.\n3. Disadvantages: Requires trust in the auditor and the TLS protocol.\n4. Best for: Scenarios where data comes from diverse HTTPS sources and hardware-based solutions are impractical.\n\nIntel SGX:\n1. Trust model: Relies on the security of Intel's hardware enclaves.\n2. Advantages: Provides strong isolation and attestation guarantees, can perform secure computations.\n3. Disadvantages: Requires specific hardware, vulnerable to potential Intel backdoors or hardware flaws.\n4. Best for: High-security applications, scenarios requiring secure computation in addition to data retrieval.\n\nScenarios favoring TLSNotary:\n1. When working with multiple, changing data sources.\n2. In environments where deploying specialized hardware is challenging.\n3. When transparency and auditability of the process are crucial.\n\nScenarios favoring Intel SGX:\n1. High-value contracts requiring the strongest available security guarantees.\n2. When secure computation on the data is needed before delivery.\n3. In controlled environments where SGX-enabled hardware can be easily deployed.\n\nThe choice depends on the specific trust assumptions, security requirements, and operational constraints of the oracle system.",
-                                    "topic": ["Cryptography", "security", "blockchain fundamental"],
+                                    "topic": ["Cryptography", "Security", "Blockchain Fundamental"],
                                     "category": "knowledge",
                                     "id": "192"
                                 },
@@ -2047,7 +2047,7 @@
                                     "question": "Design an oracle system capable of providing confidential data to privacy-preserving smart contracts (such as those using zero-knowledge proofs). Discuss how to prove the authenticity and integrity of the data without revealing the original data.",
                                     "code": "",
                                     "answer": "Designing an oracle system for privacy-preserving smart contracts requires careful consideration of cryptographic techniques and protocol design. Here's a potential approach:\n\n1. Encrypted Data Transmission:\n   - Use public key encryption to securely transmit data from the oracle to the contract.\n   - The contract would have a public key, with the corresponding private key managed securely off-chain.\n\n2. Zero-Knowledge Proofs for Data Authenticity:\n   - The oracle generates a zero-knowledge proof attesting to the authenticity and integrity of the data.\n   - This proof could demonstrate that the data comes from a trusted source and hasn't been tampered with, without revealing the data itself.\n\n3. Verifiable Computation:\n   - Utilize systems like zk-SNARKs or bulletproofs to prove that certain computations were performed correctly on the encrypted data.\n\n4. Trusted Execution Environments:\n   - Leverage TEEs like Intel SGX for data retrieval and proof generation, providing hardware-backed assurances of data integrity.\n\n5. Threshold Cryptography:\n   - Split the decryption key among multiple parties, requiring collaboration to decrypt the data and reducing single points of failure.\n\n6. Commit-Reveal Schemes:\n   - Use time-locked commitments to data, revealing only when necessary and protecting against front-running.\n\n7. Range Proofs:\n   - For numeric data, use range proofs to verify that the data falls within acceptable bounds without revealing the exact value.\n\n8. Homomorphic Encryption:\n   - Allow computations on encrypted data, enabling the smart contract to work with the data without decrypting it.\n\n9. Secure Multi-Party Computation:\n   - For scenarios requiring multiple data sources, use MPC to compute results without any party seeing the others' inputs.\n\n10. Verifiable Delay Functions:\n    - Implement VDFs to ensure that proofs or data revelations occur only after a certain time has passed.\n\nThis system would allow smart contracts to work with confidential data, proving properties about the data without revealing it, thus maintaining privacy while ensuring authenticity and integrity.",
-                                    "topic": ["zero-knowledge proof", "security", "smart contract"],
+                                    "topic": ["Zero-Knowledge Proof", "Security", "Smart Contract"],
                                     "category": "system design",
                                     "id": "193"
                                 },
@@ -2055,7 +2055,7 @@
                                     "question": "Design an oracle system capable of providing real-time data services for a large-scale IoT device network. Address challenges related to data throughput, latency, device authentication, and data validation. Propose solutions for each aspect of the system.",
                                     "code": "",
                                     "answer": "Designing an oracle system for a large-scale IoT network requires addressing several challenges:\n\n1. Data Throughput:\n   - Challenge: Handling high volume of data from numerous devices.\n   - Solution: \n     a) Implement a hierarchical data aggregation system.\n     b) Use edge computing to pre-process and filter data.\n     c) Employ efficient data compression techniques.\n     d) Utilize sharding to distribute data across multiple oracles.\n\n2. Latency:\n   - Challenge: Ensuring real-time data delivery.\n   - Solution:\n     a) Deploy geographically distributed oracle nodes.\n     b) Use Layer 2 solutions for faster data posting.\n     c) Implement event-driven architecture for immediate data propagation.\n     d) Utilize optimistic rollups for faster data availability.\n\n3. Device Authentication:\n   - Challenge: Securely identifying and authenticating IoT devices.\n   - Solution:\n     a) Implement device identity management using blockchain-based DIDs.\n     b) Use hardware-backed key storage (e.g., TPM) for device signatures.\n     c) Employ mutual TLS authentication between devices and oracle nodes.\n     d) Implement a reputation system for devices based on data quality.\n\n4. Data Validation:\n   - Challenge: Ensuring the integrity and accuracy of IoT data.\n   - Solution:\n     a) Use zero-knowledge proofs for privacy-preserving data validation.\n     b) Implement cross-validation with nearby devices for anomaly detection.\n     c) Use machine learning models for real-time data sanity checks.\n     d) Implement Byzantine fault-tolerant consensus among multiple data sources.\n\n5. Scalability:\n   - Challenge: Handling growth in the number of devices and data volume.\n   - Solution:\n     a) Design a modular system architecture for easy scaling.\n     b) Use auto-scaling cloud infrastructure for oracle nodes.\n     c) Implement data partitioning based on device types or geographical areas.\n\n6. Security:\n   - Challenge: Protecting the system against attacks and data breaches.\n   - Solution:\n     a) Implement end-to-end encryption for all data transmissions.\n     b) Use secure enclaves (e.g., Intel SGX) for sensitive data processing.\n     c) Regularly rotate encryption keys and access credentials.\n     d) Implement strict access controls and audit logging.\n\n7. Interoperability:\n   - Challenge: Handling diverse IoT protocols and data formats.\n   - Solution:\n     a) Develop a standardized data model for different IoT devices.\n     b) Implement protocol translation layers at the edge.\n     c) Use semantic web technologies for data interoperability.\n\n8. Power Efficiency:\n   - Challenge: Minimizing energy consumption for battery-powered devices.\n   - Solution:\n     a) Implement adaptive sampling rates based on data importance.\n     b) Use low-power communication protocols (e.g., LoRaWAN).\n     c) Optimize on-device data processing to reduce transmission needs.\n\n9. Maintenance and Updates:\n   - Challenge: Managing a large network of devices and oracles.\n   - Solution:\n     a) Implement over-the-air (OTA) update capabilities for devices and oracles.\n     b) Use blockchain for tracking device firmware versions and update status.\n     c) Implement self-healing mechanisms for automatic error recovery.\n\n10. Regulatory Compliance:\n    - Challenge: Adhering to data protection and privacy regulations.\n    - Solution:\n      a) Implement data anonymization techniques.\n      b) Use blockchain for immutable audit trails of data access and processing.\n      c) Develop geofencing capabilities to comply with regional data regulations.\n\nThis design creates a scalable, secure, and efficient oracle system capable of handling the complexities of large-scale IoT networks while providing real-time data services to blockchain applications.",
-                                    "topic": ["blockchain fundamental", "security"],
+                                    "topic": ["Blockchain Fundamental", "Security"],
                                     "category": "system design",
                                     "id": "194"
                                 },
@@ -2063,7 +2063,7 @@
                                     "question": "Many consensus algorithms, such as PBFT and Tendermint, require high communication complexity to maintain consistency across nodes. However, as the network scales, communication costs can become a bottleneck. Analyze the trade-offs between communication complexity and consensus security in large-scale networks, and propose an optimized consensus model that reduces communication overhead while maintaining high security.",
                                     "code": "",
                                     "answer": "High communication complexity ensures that all nodes in the network reach consensus, preventing malicious actors from creating conflicting states. However, in large-scale networks, this can lead to performance bottlenecks due to the overhead of node-to-node communication. One solution is to adopt a layered consensus model, where nodes are organized into smaller groups (committees) that achieve local consensus before propagating results to the entire network. Gossip protocols can also be used to optimize message propagation. Another approach is to employ probabilistic consensus, where not all nodes need to communicate directly, but instead rely on random subsets of nodes to reach a secure agreement, reducing communication complexity while maintaining strong security guarantees.",
-                                    "topic": ["consensus mechanisms", "blockchain fundamental"],
+                                    "topic": ["Consensus Mechanisms", "Blockchain Fundamental"],
                                     "category": "system design",
                                     "id": "195"
                                 },
@@ -2071,7 +2071,7 @@
                                     "question": "In a sharded blockchain network, shards operate independently, but if certain shards are involved in cross-chain interactions, malicious actors may attempt to exploit these interactions. Suppose a malicious actor controls shards in two different blockchain networks and tries to execute a double-spend attack. Analyze the security risks in cross-chain interoperability and propose mechanisms to prevent such double-spend attacks in sharded environments.",
                                     "code": "",
                                     "answer": "Cross-chain interactions are vulnerable to double-spend attacks when malicious actors control shards in different networks. One risk is that the attacker might create conflicting transactions on two shards, spending the same asset twice. To prevent this, lock mechanisms that delay the release of assets until both chains confirm the transaction can be employed. Another mechanism is using decentralized oracle networks that can verify cross-chain transactions and ensure consistency across the shards. Cryptographic proofs such as zk-SNARKs can also provide assurance that a transaction has not been double-spent, securing the cross-chain process against malicious interference.",
-                                    "topic": ["security", "blockchain fundamental"],
+                                    "topic": ["Security", "Blockchain Fundamental"],
                                     "category": "problem solving",
                                     "id": "196"
                                 },
@@ -2079,7 +2079,7 @@
                                     "question": "In a decentralized protocol with millions of users, token-based governance aims to represent diverse stakeholder interests. However, in practice, large token holders often dominate the process. How could a governance model be designed to balance the influence of small token holders against large investors, without undermining the efficiency of decision-making in a high-stakes environment? Consider the potential trade-offs between decentralization, efficiency, and security in your response.",
                                     "code": "",
                                     "answer": "Balancing influence requires exploring mechanisms like quadratic voting, where the cost of additional votes increases exponentially, thereby reducing the influence of large holders while empowering smaller participants. Another approach could involve weighted delegation, allowing small holders to pool their votes behind trusted representatives. However, increasing small-holder influence may slow decision-making and introduce governance gridlock, particularly in high-stakes decisions requiring rapid responses. The challenge lies in ensuring efficient decision-making while preventing centralization of power. A hybrid approach that allows both rapid technical decisions by trusted experts and broader community involvement in long-term protocol governance may offer a solution.",
-                                    "topic": ["DAO & Governance", "tokenomics"],
+                                    "topic": ["DAO & Governance", "Tokenomics"],
                                     "category": "system design",
                                     "id": "197"
                                 },
@@ -2087,7 +2087,7 @@
                                     "question": "Modular smart contracts enable a decentralized protocol to upgrade individual components without disrupting the entire system. However, the flexibility to upgrade also introduces potential risks, such as attacks during the transition phase or inconsistency between modules. How can a protocol design an upgrade process that ensures both flexibility and security, especially when dealing with critical financial infrastructure? Include considerations around testing, governance approval, and real-time monitoring in your response.",
                                     "code": "",
                                     "answer": "The upgrade process should include multiple stages of rigorous testing in both testnet and simulated environments before deployment to the mainnet. Governance approval should involve multi-signature wallets or delegated committees to ensure that changes are properly vetted before implementation. During the transition phase, smart contracts could incorporate rollback mechanisms in case of vulnerabilities. Additionally, real-time monitoring tools, such as on-chain analytics and automated alerts, should be used to detect anomalies during upgrades. Furthermore, the use of 'time-locked' changes, where a proposal is visible for a set period before activation, allows stakeholders to react to potential issues, further safeguarding the protocol.",
-                                    "topic": ["smart contract", "DAO & Governance"],
+                                    "topic": ["Smart Contract", "DAO & Governance"],
                                     "category": "system design",
                                     "id": "198"
                                 },
@@ -2095,7 +2095,7 @@
                                     "question": "Token distribution plays a crucial role in determining governance outcomes. However, distributing tokens fairly across different types of users (e.g., developers, liquidity providers, traders) while maintaining alignment between governance power and contribution is a significant challenge. How can a decentralized protocol ensure that governance tokens are distributed in a way that reflects actual contributions and prevents manipulation or disproportionate power by non-contributing parties? Discuss both theoretical and practical mechanisms that can be implemented.",
                                     "code": "",
                                     "answer": "One practical approach is the implementation of participation-based rewards, where governance tokens are distributed proportionally to users based on their contributions, such as liquidity provision, trading volume, or development efforts. This can be combined with vesting schedules to prevent immediate liquidation and ensure long-term alignment. Theoretical models like Sybil-resistant mechanisms (e.g., proof-of-personhood) can help prevent manipulation by ensuring that governance tokens are tied to real economic activity. Additionally, anti-collusion mechanisms like commitment schemes or verifiable random functions (VRFs) can help prevent coordinated groups from gaming the system. Finally, dynamic token weighting based on both contribution and risk exposure can ensure that those who have the most at stake in the protocol hold the most influence.",
-                                    "topic": ["DAO & Governance", "tokenomics"],
+                                    "topic": ["DAO & Governance", "Tokenomics"],
                                     "category": "system design",
                                     "id": "199"
                                 },
@@ -2103,7 +2103,7 @@
                                     "question": "Frequent protocol upgrades are essential in maintaining security and competitiveness in a rapidly evolving blockchain environment. However, frequent changes can also introduce vulnerabilities, especially if the upgrades are rushed or inadequately vetted. How should a decentralized protocol approach the governance of critical upgrades to balance the need for rapid iteration with the risks of introducing new attack vectors? Explore mechanisms for incentivizing rigorous testing, stakeholder involvement, and fallback options in case of upgrade failures.",
                                     "code": "",
                                     "answer": "To balance the need for rapid iteration with security, a decentralized protocol could adopt a layered approach to upgrades. Critical upgrades should undergo a multi-phase review process that includes open-source code audits, bounty programs, and formal verification methods. Governance structures can incentivize developers and stakeholders to participate in these reviews through token-based rewards. For particularly high-risk upgrades, the protocol could deploy a 'shadow' or parallel version of the upgrade, running alongside the main protocol until confidence is built. In the event of failure, rollback mechanisms or upgrade delay locks can provide fallback options, ensuring that any disruptions can be mitigated without compromising the network.",
-                                    "topic": ["DAO & Governance", "security"],
+                                    "topic": ["DAO & Governance", "Security"],
                                     "category": "system design",
                                     "id": "200"
                                 },
@@ -2111,7 +2111,7 @@
                                     "question": "In a decentralized governance system, innovation can be slowed down by the need for broad consensus, especially when rapid decisions are required. However, concentrating decision-making power in a small group can undermine the principles of decentralization. How can a protocol ensure that technical innovation continues at a fast pace without sacrificing the inclusiveness and transparency that decentralized governance promises? Provide examples of hybrid governance models that achieve this balance.",
                                     "code": "",
                                     "answer": "A hybrid governance model could involve splitting governance into different layers or domains of control. For instance, technical upgrades or bug fixes might be decided by a specialized technical committee or through delegated decision-making, while major changes to protocol economics or governance structures would require broader community involvement. An example of this approach is Polkadot’s Council model, where a smaller elected group can make quicker decisions while remaining accountable to the community through periodic elections. Another approach could be a tiered voting system, where urgent technical changes are fast-tracked but subject to later community review and veto if necessary, ensuring transparency without hindering innovation.",
-                                    "topic": ["DAO & Governance", "consensus mechanisms"],
+                                    "topic": ["DAO & Governance", "Consensus Mechanisms"],
                                     "category": "system design",
                                     "id": "201"
                                 },
@@ -2119,7 +2119,7 @@
                                     "question": "In decentralized trading protocols, liquidity and network effects are critical for success. How should a protocol approach the process of implementing upgrades that could potentially disrupt these network effects, such as changes to core smart contracts or the introduction of new token standards? Discuss the mechanisms that should be in place to mitigate disruption to liquidity and maintain trader confidence during periods of significant change.",
                                     "code": "",
                                     "answer": "To mitigate disruption to liquidity during significant upgrades, the protocol should ensure that any changes are backward-compatible, allowing existing users and liquidity providers to continue their operations without interruption. Additionally, phased rollouts with dual contract support (old and new versions running in parallel) can help ensure a smooth transition. Liquidity mining incentives can also be introduced to maintain liquidity during the upgrade process. Clear communication with the community, including detailed timelines and guidelines for transitioning to the new system, is crucial for maintaining trader confidence. In cases of substantial change, time-locking upgrades or introducing grace periods can provide users with enough time to adjust without risking their funds or positions.",
-                                    "topic": ["DeFi", "smart contract"],
+                                    "topic": ["DeFi", "Smart Contract"],
                                     "category": "system design",
                                     "id": "202"
                                 },
@@ -2127,7 +2127,7 @@
                                     "question": "In decentralized governance, low voter turnout can lead to decision-making dominated by a small, concentrated group of token holders, potentially leading to harmful proposals being passed. How can a decentralized protocol design incentives or mechanisms to increase voter turnout and ensure that governance decisions reflect the wider community’s interests? Analyze the potential risks and benefits of different voter engagement strategies.",
                                     "code": "",
                                     "answer": "A protocol could introduce voter incentives, such as governance rewards, where users earn a portion of transaction fees or staking rewards for participating in votes. Quadratic voting or reputation-based voting systems can help balance influence and encourage broader participation, ensuring that smaller stakeholders are not disenfranchised. Additionally, delegation mechanisms, where less active users can delegate their votes to trusted representatives, can increase turnout while maintaining decision quality. However, these strategies come with risks—rewards for voting might incentivize uninformed participation, while delegation systems could lead to the concentration of voting power in the hands of a few trusted parties. Striking a balance between incentivizing participation and ensuring informed decision-making is key.",
-                                    "topic": ["DAO & Governance", "tokenomics"],
+                                    "topic": ["DAO & Governance", "Tokenomics"],
                                     "category": "system design",
                                     "id": "203"
                                 },
@@ -2135,7 +2135,7 @@
                                     "question": "As decentralized trading protocols expand across multiple blockchains, governance challenges arise in ensuring that stakeholders on different chains have fair representation in decision-making processes. How should a protocol design its governance system to incorporate multi-chain representation, and what mechanisms can be used to ensure decisions made on one chain are enforced across others? Discuss the challenges and potential solutions for achieving cross-chain governance.",
                                     "code": "",
                                     "answer": "Multi-chain governance requires representation from all participating blockchains to ensure fair decision-making. One solution could be to implement a weighted voting system, where voting power is proportional to the liquidity or activity of participants on each chain. Alternatively, cross-chain bridges could enable governance tokens to be transferred and used across different chains, ensuring seamless participation in a unified governance model. To enforce decisions across chains, smart contracts with inter-chain communication protocols, such as Cosmos' IBC or Polkadot's relay chain, can synchronize governance actions. However, challenges include the risk of governance fragmentation and the potential for cross-chain attacks, which necessitate strong security protocols and decentralized bridges to ensure consistency and security.",
-                                    "topic": ["DAO & Governance", "cross-chain"],
+                                    "topic": ["DAO & Governance"],
                                     "category": "system design",
                                     "id": "204"
                                 },
@@ -2143,7 +2143,7 @@
                                     "question": "Smart contracts are excellent for automating predefined rules, but they struggle with ambiguity and edge cases in real-world scenarios. How can DAOs address the limitations of smart contracts when dealing with complex real-world operations? Discuss the role of off-chain arbitration or human intervention in such cases.",
                                     "code": "",
                                     "answer": "To handle ambiguity and exceptions in real-world operations, DAOs can integrate off-chain arbitration or governance mechanisms that involve human intervention when necessary. These off-chain mechanisms could serve as a fallback for situations that smart contracts cannot resolve autonomously. However, these interventions must be transparent, with the results recorded on-chain to ensure accountability. The challenge is maintaining decentralization while allowing human judgment where smart contracts fall short.",
-                                    "topic": ["DAO & Governance", "smart contract"],
+                                    "topic": ["DAO & Governance", "Smart Contract"],
                                     "category": "problem solving",
                                     "id": "205"
                                 },
@@ -2151,7 +2151,7 @@
                                     "question": "Many DAOs seek to manage real-world assets, but these assets cannot be fully governed on-chain. How can DAOs bridge the gap between real-world assets and on-chain governance, while ensuring transparency and reducing reliance on centralized intermediaries?",
                                     "code": "",
                                     "answer": "DAOs can bridge the gap by using tokenization, where real-world assets are represented as tokens on the blockchain. However, tokenization alone doesn’t fully address the governance challenge. DAOs could employ decentralized custodians or trust structures, where multiple decentralized entities manage the real-world assets on behalf of the DAO. Additionally, using decentralized oracle networks can provide reliable, tamper-resistant data about the state of these assets, ensuring that the on-chain governance can act on accurate and real-time information.",
-                                    "topic": ["DAO & Governance", "real-world assets"],
+                                    "topic": ["DAO & Governance"],
                                     "category": "system design",
                                     "id": "206"
                                 },
@@ -2159,7 +2159,7 @@
                                     "question": "Many off-chain operations in a DAO might involve interactions with traditional power structures, such as legal systems or regulatory frameworks. How can DAOs interact with these centralized systems while maintaining decentralization and autonomy? What hybrid models could support this interaction?",
                                     "code": "",
                                     "answer": "DAOs can adopt hybrid models that combine decentralized governance with legal entities, such as the establishment of DAO LLCs (Limited Liability Companies). This model allows DAOs to interact with traditional legal and regulatory systems while maintaining their decentralized governance structure. Another option is to use decentralized legal contracts or digital escrow services, where smart contracts enforce agreements, but interaction with centralized legal systems is minimized. These hybrid models must carefully balance compliance with traditional power structures while ensuring that control remains with the DAO’s decentralized participants.",
-                                    "topic": ["DAO & Governance", "legal systems"],
+                                    "topic": ["DAO & Governance"],
                                     "category": "system design",
                                     "id": "207"
                                 },
@@ -2167,7 +2167,7 @@
                                     "question": "In a DAO, how can you design a mechanism to ensure the trustworthiness and accuracy of external data inputs? Given that off-chain data often comes from third-party providers, how can you balance the trade-off between decentralization and efficiency in oracle networks? In highly automated DAOs, how do you prevent external inputs from becoming a source of systemic risk?",
                                     "code": "",
                                     "answer": "Scoring principles:\n1. **Understanding and Analysis**: The response should demonstrate an understanding of decentralized oracle networks and the trust issues associated with off-chain data.\n2. **Innovation and Feasibility**: Proposing innovative mechanisms such as multi-party verification or decentralized oracle incentives will score higher.\n3. **Real-world Applicability**: The response should discuss solutions to ensure the reliability of data providers without compromising decentralization.",
-                                    "topic": ["DAO & Governance", "oracle networks"],
+                                    "topic": ["DAO & Governance"],
                                     "category": "system design",
                                     "id": "208"
                                 },
@@ -2175,7 +2175,7 @@
                                     "question": "Real-world events are often ambiguous and uncertain, while smart contracts operate on precise, predefined rules. How would you design a DAO that can effectively handle ambiguous or uncertain inputs without compromising the principles of automation and decentralization? Discuss possible governance structures, on-chain/off-chain interaction mechanisms, and solutions for dealing with unclear information.",
                                     "code": "",
                                     "answer": "Scoring principles:\n1. **Understanding and Analysis**: The response should show a deep understanding of the limitations of smart contracts in handling ambiguity.\n2. **Innovation and Feasibility**: High-scoring answers will propose hybrid governance models or multiple-layer verification to address ambiguity in real-world data.\n3. **Real-world Applicability**: Practical examples of managing ambiguity, such as using social consensus or multi-layered verification systems, will score higher.",
-                                    "topic": ["DAO & Governance", "smart contract"],
+                                    "topic": ["DAO & Governance", "Smart Contract"],
                                     "category": "system design",
                                     "id": "209"
                                 },
@@ -2183,7 +2183,7 @@
                                     "question": "When a DAO must rely on off-chain inputs, how would you design a decentralized verification model to ensure the authenticity and integrity of the data? Do you think mechanisms like multi-party verification, decentralized oracles, or distributed signal networks are sufficient to solve this problem? Propose a verification model that would work best in complex business scenarios and analyze its potential challenges.",
                                     "code": "",
                                     "answer": "Scoring principles:\n1. **Understanding and Analysis**: The response should clearly outline the trust and integrity issues associated with off-chain inputs and decentralized verification.\n2. **Innovation and Feasibility**: Proposing multi-layered verification or innovative use of decentralized oracles will score highly.\n3. **Real-world Applicability**: Realistic and scalable verification mechanisms that can work in complex scenarios should be emphasized.",
-                                    "topic": ["DAO & Governance", "oracle networks"],
+                                    "topic": ["DAO & Governance"],
                                     "category": "system design",
                                     "id": "210"
                                 },
@@ -2191,7 +2191,7 @@
                                     "question": "For complex business scenarios that involve multi-dimensional inputs, smart contracts often struggle to handle all possible cases. How would you design a scalable smart contract architecture that adapts to changing real-world needs? Discuss how to maintain contract autonomy while allowing for dynamic adjustments based on external conditions.",
                                     "code": "",
                                     "answer": "Scoring principles:\n1. **Understanding and Analysis**: The response should show an understanding of smart contracts’ limitations in adapting to real-world changes.\n2. **Innovation and Feasibility**: High scores will be given to those proposing dynamic and modular contract architectures that adjust based on external conditions.\n3. **Real-world Applicability**: The proposal should demonstrate how smart contracts can remain autonomous while being adaptable to complex business needs.",
-                                    "topic": ["smart contract", "system design"],
+                                    "topic": ["Smart Contract"],
                                     "category": "system design",
                                     "id": "211"
                                 },
@@ -2199,7 +2199,7 @@
                                     "question": "In complex DAOs, conflicts may arise between human decisions and algorithmic rules. How would you design a conflict resolution mechanism to ensure that when human decisions conflict with automated smart contract execution, the issue is resolved in a way that maintains the integrity of the DAO’s operations? Discuss possible design principles and strategies for conflict resolution.",
                                     "code": "",
                                     "answer": "Scoring principles:\n1. **Understanding and Analysis**: The response should demonstrate a clear understanding of potential conflicts between human decisions and automated execution.\n2. **Innovation and Feasibility**: High scores will go to proposals involving multi-layered governance systems or hybrid decision-making mechanisms that balance human and algorithmic inputs.\n3. **Real-world Applicability**: The answer should propose practical conflict resolution strategies that can work in a real-world DAO, ensuring governance integrity.",
-                                    "topic": ["DAO & Governance", "conflict resolution"],
+                                    "topic": ["DAO & Governance"],
                                     "category": "system design",
                                     "id": "212"
                                 },
@@ -2207,7 +2207,7 @@
                                     "question": "How can privacy-preserving techniques, such as zero-knowledge proofs or homomorphic encryption, be applied to LLM-powered agents to ensure task completion verification without exposing sensitive data? How could this mechanism be applied across different scenarios?",
                                     "code": "",
                                     "answer": "Scoring principles:\n1. **Understanding and Analysis**: The response should demonstrate a clear understanding of privacy-preserving techniques like ZKP or homomorphic encryption.\n2. **Innovation and Feasibility**: High scores will be given to responses that propose practical applications of these techniques across different scenarios.\n3. **Real-world Applicability**: The solution should address how privacy can be maintained in various real-world contexts, such as financial services or healthcare.",
-                                    "topic": ["agent", "zero-knowledge proof", "security"],
+                                    "topic": ["Agent", "Zero-Knowledge Proof", "Security"],
                                     "category": "system design",
                                     "id": "213"
                                 },
@@ -2215,7 +2215,7 @@
                                     "question": "In a multi-agent scenario where several LLM-powered agents collaborate to complete a complex task, how can game theory be used to incentivize each agent to complete their part of the task efficiently? How can 'free-riding' be prevented?",
                                     "code": "",
                                     "answer": "Scoring principles:\n1. **Understanding and Analysis**: The response should show an understanding of game theory concepts, such as Nash equilibrium and cooperation.\n2. **Innovation and Feasibility**: Responses proposing novel ways to prevent free-riding through incentive design will score highly.\n3. **Real-world Applicability**: Practical examples of how these incentives can be applied to multi-agent collaborations will be rewarded.",
-                                    "topic": ["agent", "game theory"],
+                                    "topic": ["Agent"],
                                     "category": "problem solving",
                                     "id": "214"
                                 },
@@ -2223,7 +2223,7 @@
                                     "question": "When an LLM-powered agent hires another agent or human to execute a task, how can trust be established between the two parties? What decentralized mechanisms could be used to verify task completion without external supervision?",
                                     "code": "",
                                     "answer": "Scoring principles:\n1. **Understanding and Analysis**: The response should explore trust-building mechanisms such as smart contracts or decentralized verification.\n2. **Innovation and Feasibility**: High scores will go to those proposing decentralized, scalable methods for trust and verification.\n3. **Real-world Applicability**: The solution should consider how to handle verification in environments where no external oversight is available.",
-                                    "topic": ["agent", "smart contract", "security"],
+                                    "topic": ["Agent", "Smart Contract", "Security"],
                                     "category": "system design",
                                     "id": "215"
                                 },
@@ -2231,7 +2231,7 @@
                                     "question": "In a scenario where an agent subcontracts a task to other agents, how can a chain of responsibility be established to ensure that every agent is accountable for the outcome? How can this mechanism prevent the evasion of responsibility?",
                                     "code": "",
                                     "answer": "Scoring principles:\n1. **Understanding and Analysis**: The response should consider the dynamics of task delegation and responsibility in multi-agent systems.\n2. **Innovation and Feasibility**: The proposed solutions should include methods to track accountability, such as token staking or audit trails.\n3. **Real-world Applicability**: The answer should show how this chain of responsibility works in complex, real-world task structures.",
-                                    "topic": ["agent", "security"],
+                                    "topic": ["Agent", "Security"],
                                     "category": "system design",
                                     "id": "216"
                                 },
@@ -2239,7 +2239,7 @@
                                     "question": "How can Trusted Execution Environments (TEEs) be integrated into LLM-powered agents to ensure the security of task execution, even when operating in untrusted environments? How can task verification be enhanced using hardware-based security?",
                                     "code": "",
                                     "answer": "Scoring principles:\n1. **Understanding and Analysis**: The response should show a solid understanding of TEE technology and how it can be applied to secure execution.\n2. **Innovation and Feasibility**: Proposals that creatively use TEE for both execution and verification will score highly.\n3. **Real-world Applicability**: The response should address how this could be applied in practice across different industries, such as finance or healthcare.",
-                                    "topic": ["agent", "security", "TEE"],
+                                    "topic": ["Agent", "Security"],
                                     "category": "system design",
                                     "id": "217"
                                 },
@@ -2247,7 +2247,7 @@
                                     "question": "How can a multi-agent verification system be designed to confirm task completion when one agent claims to have finished a task? How can such a system prevent collusion or fraud between agents?",
                                     "code": "",
                                     "answer": "Scoring principles:\n1. **Understanding and Analysis**: The response should demonstrate an understanding of verification dynamics in multi-agent systems.\n2. **Innovation and Feasibility**: Innovative ways to reduce fraud and collusion, such as cross-agent consensus or random auditing, will score highly.\n3. **Real-world Applicability**: The answer should discuss how this can be applied in real-world scenarios to ensure accurate task verification.",
-                                    "topic": ["agent", "security"],
+                                    "topic": ["Agent", "Security"],
                                     "category": "problem solving",
                                     "id": "218"
                                 },
@@ -2255,7 +2255,7 @@
                                     "question": "LLM-powered agents often rely on dynamic data from the real world. How can a real-time verification system be designed to ensure the accuracy and timeliness of external inputs? What mechanisms can prevent data tampering or manipulation?",
                                     "code": "",
                                     "answer": "Scoring principles:\n1. **Understanding and Analysis**: The response should show an understanding of real-time data verification and the challenges of ensuring accuracy.\n2. **Innovation and Feasibility**: Proposals that use decentralized data oracles or other methods to cross-verify inputs will score highly.\n3. **Real-world Applicability**: The solution should address potential uses in environments requiring real-time decision-making, such as financial markets.",
-                                    "topic": ["agent", "oracle networks", "security"],
+                                    "topic": ["Agent", "Security"],
                                     "category": "system design",
                                     "id": "219"
                                 },
@@ -2263,7 +2263,7 @@
                                     "question": "When an LLM-powered agent hires a human to complete a task, what mechanisms can be designed to verify that the human has actually completed the task? How can this verification system operate in a decentralized, trustless environment?",
                                     "code": "",
                                     "answer": "Scoring principles:\n1. **Understanding and Analysis**: The response should show an understanding of the challenges in verifying human task completion.\n2. **Innovation and Feasibility**: Proposals that use decentralized audits or third-party verifications will score highly.\n3. **Real-world Applicability**: The solution should address practical use cases, such as freelancing platforms or task marketplaces.",
-                                    "topic": ["agent", "security"],
+                                    "topic": ["Agent", "Security"],
                                     "category": "problem solving",
                                     "id": "220"
                                 },
@@ -2271,7 +2271,7 @@
                                     "question": "How can collaborative LLM-powered agents be incentivized to contribute their fair share in completing a shared task? How can their individual contributions be fairly evaluated and rewarded without centralized oversight?",
                                     "code": "",
                                     "answer": "Scoring principles:\n1. **Understanding and Analysis**: The response should explore decentralized reward systems and how contributions can be measured fairly.\n2. **Innovation and Feasibility**: Proposals that incorporate decentralized reputation systems or token-based rewards will score highly.\n3. **Real-world Applicability**: The solution should discuss how it could work in decentralized networks where multiple agents contribute to a task.",
-                                    "topic": ["agent", "tokenomics"],
+                                    "topic": ["Agent", "Tokenomics"],
                                     "category": "system design",
                                     "id": "221"
                                 },
@@ -2279,7 +2279,7 @@
                                     "question": "How can a blockchain-based governance system ensure that real-world tasks performed by LLM-powered agents align with on-chain decisions? How can task acceptance criteria be formalized and enforced in a decentralized manner?",
                                     "code": "",
                                     "answer": "Scoring principles:\n1. **Understanding and Analysis**: The response should explain the relationship between on-chain governance and real-world task execution.\n2. **Innovation and Feasibility**: Solutions that use smart contracts to formalize task completion criteria will score highly.\n3. **Real-world Applicability**: The response should explore how this system can be practically applied to real-world use cases, such as supply chain management.",
-                                    "topic": ["agent", "blockchain fundamental", "DAO & Governance"],
+                                    "topic": ["Agent", "Blockchain Fundamental", "DAO & Governance"],
                                     "category": "system design",
                                     "id": "222"
                                 },
@@ -2287,7 +2287,7 @@
                                     "question": "How can a decentralized, trustless system for task verification be designed so that agents and humans can validate task completion without relying on trust? How can game theory and incentives be used to ensure accuracy?",
                                     "code": "",
                                     "answer": "Scoring principles:\n1. **Understanding and Analysis**: The response should explore trustless verification systems and how game theory can incentivize accurate reporting.\n2. **Innovation and Feasibility**: High-scoring answers will propose scalable systems using decentralized technologies, such as reputation models or staking mechanisms.\n3. **Real-world Applicability**: The solution should address how such a system can be used in industries where task verification is critical.",
-                                    "topic": ["agent", "game theory", "security"],
+                                    "topic": ["Agent", "Security"],
                                     "category": "system design",
                                     "id": "223"
                                 },
@@ -2295,7 +2295,7 @@
                                     "question": "How can historical reputation systems be designed to ensure that LLM-powered agents can secure future high-value tasks based on their previous performance? How can reputation be transferred across different contexts and environments?",
                                     "code": "",
                                     "answer": "Scoring principles:\n1. **Understanding and Analysis**: The response should explore the dynamics of reputation systems and how they influence future task opportunities.\n2. **Innovation and Feasibility**: Solutions that allow for reputation portability across different domains or industries will score highly.\n3. **Real-world Applicability**: The solution should consider how reputation can be maintained or adjusted in decentralized systems.",
-                                    "topic": ["agent", "tokenomics", "security"],
+                                    "topic": ["Agent", "Tokenomics", "Security"],
                                     "category": "system design",
                                     "id": "224"
                                 },
@@ -2303,7 +2303,7 @@
                                     "question": "How can data sources used by LLM-powered agents be verified to ensure they are trustworthy and not compromised? How can privacy be preserved while verifying the authenticity of data?",
                                     "code": "",
                                     "answer": "Scoring principles:\n1. **Understanding and Analysis**: The response should explore data verification techniques and the balance between trust and privacy.\n2. **Innovation and Feasibility**: Proposals using zero-knowledge proofs or other privacy-preserving methods for data verification will score highly.\n3. **Real-world Applicability**: The solution should discuss how this balance can be achieved in industries where data integrity and privacy are critical.",
-                                    "topic": ["agent", "zero-knowledge proof", "security"],
+                                    "topic": ["Agent", "Zero-Knowledge Proof", "Security"],
                                     "category": "system design",
                                     "id": "225"
                                 },
@@ -2311,7 +2311,7 @@
                                     "question": "In an unpredictable market environment, how can adaptive emission models balance between incentivizing participation and preventing supply shocks? Propose a multi-phase emissions model that adapts dynamically to market volatility and user engagement, while mitigating token inflation.",
                                     "code": "",
                                     "answer": "An advanced emissions model should include dynamic adjustments based on real-time market data and user activity. The system could include multi-phase rewards that increase during periods of low participation and decrease during high user engagement to prevent oversupply.",
-                                    "topic": ["tokenomics", "DeFi"],
+                                    "topic": ["Tokenomics", "DeFi"],
                                     "category": "system design",
                                     "id": "226"
                                 },
@@ -2319,7 +2319,7 @@
                                     "question": "How can token buyback and burn mechanisms be structured to operate autonomously in response to external market signals? Propose an algorithmic system that integrates market data to dynamically adjust buyback and burn rates, and analyze its potential effects on token liquidity and price stability.",
                                     "code": "",
                                     "answer": "The mechanism should be connected to a price oracle that monitors market conditions, adjusting buyback and burn operations when liquidity drops or price volatility increases. This approach helps maintain token scarcity and price stability.",
-                                    "topic": ["tokenomics", "DeFi"],
+                                    "topic": ["Tokenomics", "DeFi"],
                                     "category": "system design",
                                     "id": "227"
                                 },
@@ -2327,7 +2327,7 @@
                                     "question": "In the event of a liquidity crisis, how can a decentralized project preemptively design multi-tiered contingency measures to prevent panic withdrawals and collapse? Explore the use of dynamic interest rates, time-locked liquidity, and decentralized insurance mechanisms to stabilize the system.",
                                     "code": "",
                                     "answer": "Multi-tiered contingency measures include dynamic interest rates that rise during low liquidity periods, incentivizing users to keep liquidity locked. Time-locked liquidity pools could ensure gradual exits, while decentralized insurance offers protection against systemic collapse.",
-                                    "topic": ["DeFi", "security"],
+                                    "topic": ["DeFi", "Security"],
                                     "category": "system design",
                                     "id": "228"
                                 },
@@ -2335,7 +2335,7 @@
                                     "question": "In a speculative market, how can tokenomics ensure that a token's utility remains the primary driver of demand? Propose a dynamic token utility model where speculative behavior is penalized, and utility-focused behaviors (e.g., staking, governance participation, network usage) are incentivized through an adaptive rewards system.",
                                     "code": "",
                                     "answer": "The model could penalize frequent trades or speculative activity by reducing rewards for short-term holding. Adaptive rewards could include bonus tokens or reduced fees for staking and governance participation, ensuring utility remains the key demand driver.",
-                                    "topic": ["tokenomics", "DAO & Governance"],
+                                    "topic": ["Tokenomics", "DAO & Governance"],
                                     "category": "system design",
                                     "id": "229"
                                 },
@@ -2343,7 +2343,7 @@
                                     "question": "What complex mechanisms can be introduced to ensure that long-term token holding is driven by organic utility rather than purely financial rewards? Design a token model that includes multi-tiered staking rewards, reputation-driven bonuses, and penalties for speculative short-term trading.",
                                     "code": "",
                                     "answer": "A multi-tiered staking system could provide increasing rewards for longer lock-up periods. Reputation-driven bonuses could reward valuable community contributions, while penalties for short-term trading ensure holding is driven by utility rather than speculation.",
-                                    "topic": ["tokenomics", "DeFi"],
+                                    "topic": ["Tokenomics", "DeFi"],
                                     "category": "system design",
                                     "id": "230"
                                 }
