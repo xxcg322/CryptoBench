@@ -1,6 +1,6 @@
 # CryptoBench Leaderboard 2024.10.02
 
-| Rank | Model | Overall Score | coding | problem solving | system design | calculation | auditing | knowledge |
+| Rank | Model | Overall Score | coding | problem solving | system design | Computation | auditing | knowledge |
 |------|-------|---------------|-----|-----|-----|-----|-----|-----|
 | 1 | o1-preview | 87.85 | 92.15 | 85.56 | 87.69 | 83.69 | 90.67 | 87.35 |
 | 2 | o1-mini | 87.24 | 92.85 | 87.87 | 88.38 | 79.62 | 89.86 | 84.85 |
