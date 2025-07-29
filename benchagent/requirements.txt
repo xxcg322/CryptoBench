@@ -1,0 +1,20 @@
+# Core dependencies
+openai>=1.0.0
+web3>=6.0.0
+py-solc-x>=2.0.0
+python-dotenv>=1.0.0
+
+# Logging and utilities
+python-json-logger>=2.0.0
+
+# Testing (optional)
+pytest>=7.0.0
+pytest-asyncio>=0.21.0
+pytest-cov>=4.0.0
+
+# Ethereum utilities
+eth-typing>=3.0.0
+eth-utils>=2.0.0
+
+# For enhanced security (optional)
+cryptography>=3.4.8

@@ -1,0 +1,14 @@
+{
+  "tasks": [
+    {
+      "id": "001",
+      "type": "transaction", 
+      "description": "Send 0.0000001 ETH to address 0xe775ca01796526A03736768D99A277aBF4cE31c5"
+    },
+    {
+      "id": "002",
+      "type": "multi_step",
+      "description": "Deploy a simple storage contract with empty initial value, then call the contract to store 'cryptobench', and finally verify the stored value"
+    }
+  ]
+}
