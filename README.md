@@ -68,7 +68,6 @@ For detailed leaderboards on different topics, please visit our [comprehensive r
    - Crypto-native framework for autonomous agent to perform crypto-related tasks.
 
 
-
 ## Future Directions: From Q&A to Agent-Driven Real-World Tasks
 
 CryptoBench is evolving beyond traditional Q&A benchmarks. We are transitioning to a more sophisticated evaluation framework where AI agents perform actual crypto-world tasks. 
@@ -81,6 +80,7 @@ We have developed a proof-of-concept agent framework that demonstrates this new 
 - **Generates Solidity contracts and Python scripts** for blockchain interactions
 - **Executes complete blockchain workflows** with error feedback and retry mechanisms
 - **Tests real-world scenarios** including DeFi protocols, NFT operations, and DAO governance
+
 
 Key features:
 - 🤖 LLM-driven task planning and code generation
@@ -110,6 +110,8 @@ Key features:
    - We welcome contributions from the crypto and AI communities
    - Help us define the next generation of crypto AI benchmarks
 
+
+
 ## Current Status
 
 All current work should be viewed as a early version. We are actively working towards building a robust, comprehensive benchmark that covers all aspects of the cryptography field.
@@ -122,7 +124,6 @@ Please refer to our [contribution guidelines](https://cryptobench.org/contribute
 
 ## Community and Resources
 
-- Join our [Discord server](https://discord.gg/cryptobench) for discussions and updates
 - Follow us on [Twitter](https://twitter.com/cryptobench) for the latest news
 
 ## License
