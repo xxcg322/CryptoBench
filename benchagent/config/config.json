@@ -1,0 +1,21 @@
+{
+  "llm": {
+    "model": "gpt-4o",
+    "api_key": "${OPENAI_API_KEY}",
+    "temperature": 0.1,
+    "max_tokens": 4000,
+    "timeout": 60
+  },
+  "blockchain": {
+    "rpc_url": "${RPC_URL}",
+    "private_key": "${PRIVATE_KEY}",
+    "sender_address": "${SENDER_ADDRESS}",
+    "chain_id": 1,
+    "gas_limit": 8000000,
+    "gas_price_multiplier": 1.2
+  },
+  "max_retries": 5,
+  "timeout": 600,
+  "output_dir": "outputs",
+  "solc_version": "0.8.20"
+}
